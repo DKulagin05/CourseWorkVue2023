@@ -1,0 +1,44 @@
+body {
+
+}
+input[type='text'] {
+    width: 150px;
+    border: 1px black solid !important;
+    border-radius: 5px !important;
+}
+textarea {
+    resize: none !important;
+}
+.create_room {
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+}
+.universal_block {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+.adminPage_body {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    /*align-items: center;*/
+    justify-content: center;
+}
+.create_room {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.redact_product_inputs {
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+    gap: 10px;
+    justify-content: center !important;
+}
+/*.remove_product_table {*/
+/*    display: flex;*/
+/*    gap: 5px !important;*/
+/*}*/

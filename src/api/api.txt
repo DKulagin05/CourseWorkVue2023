@@ -1,0 +1,144 @@
+API
+
+Request:
+
+Auth {
+    URL: {}/api/Login
+    Method: GET
+    Headers
+    - Content-Type: application/json
+    Body:
+    {
+       “mail”: “mail@mail.ru”,
+       “password”: “paSSword”
+    }
+
+    URL: {host}/api/Register
+    Method: POST
+    Headers
+    - Content-Type: application/json
+    Body:
+    {
+       “name”: “Ivan”,
+       “surname”: “Ivanov”,
+       “patronymic”: “patronymic”,
+       “email”: “mail@mail.ru”,
+       "phone": "89123055142",
+       “password”: “paSSword”
+    }
+
+    URL: {host}/api/Logout
+    Method: GET
+    Headers
+    - Content-Type: application/json
+    Body:
+    {
+       “email”: “mail@mail.ru”,
+       "phone": "89123055142",
+       “password”: “paSSword”
+    }
+}
+
+Personal_info {
+    URL: {host}/api/redact
+    Method: POST
+    Headers
+    - Content-Type: application/json
+    Body:
+    {
+       “new_name”: “Ivan”,
+       “new_surname”: “Ivanov”,
+       “new_patronymic”: “patronymic”,
+       “new_email”: “mail@mail.ru”,
+       "new_phone": "89123055142",
+       “new_password”: “paSSword”
+    }
+
+    URL: {host}/api/Personal_data
+    Method: GET
+    Headers
+    - Content-Type: application/json
+    Body:
+    {
+       “name”: “Ivan”,
+       “surname”: “Ivanov”,
+       “patronymic”: “patronymic”,
+       “email”: “mail@mail.ru”,
+       "phone": "89123055142",
+       "booking": "array"
+    }
+
+    URL: {host}/api/Booking_cansel
+    Method: POST
+    Headers
+    - Content-Type: application/json
+    Body:
+    {
+       “title”: “TitleProduct”,
+       “square”: “16”,
+       “people_count”: “2”,
+       “price”: “51515”
+    }
+
+}
+
+Product {
+    URL: {host}/api/ProductData
+    Method: GET
+    Headers
+    - Content-Type: application/json
+    Body:
+    {
+       “title”: “TitleProduct”,
+       “square”: “16”,
+       “people_count”: “2”,
+       “price”: “51515”,
+       “sort_date”: “15/02/20013”,
+       “sort_avaible”: “true”,
+    }
+
+    URL: {host}/api/Booking
+    Method: GET
+    Headers
+    - Content-Type: application/json
+    Body:
+    {
+       “title”: “TitleProduct”,
+       “square”: “16”,
+       “people_count”: “2”,
+       “price”: “51515”
+    }
+
+}
+
+Services {
+    URL: {host}/api/Services
+    Method: GET
+    Headers
+    - Content-Type: application/json
+    Body:
+    {
+       “title”: “TitleServices”,
+       “description”: “DescriptionServices”
+    }
+
+    URL: {host}/api/Special
+    Method: GET
+    Headers
+    - Content-Type: application/json
+    Body:
+    {
+       “title”: “TitleSpecial”,
+       “description”: “DescriptionSpecial”
+    }
+
+    URL: {host}/api/Mailing
+    Method: POST
+    Headers
+    - Content-Type: application/json
+    Body:
+    {
+       “email”: “asd@mail.ru”,
+       “description”: “DescriptionSpecial”
+    }
+}

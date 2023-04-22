@@ -1,0 +1,18 @@
+.products-list {
+    display: flex;
+    gap: 50px;
+}
+input[type="text"] {
+    width: 100px !important;
+    margin-right: 20px;
+}
+.edit_personal_data {
+
+}
+.edit_profile_btn {
+    border: black 1px dashed;
+    margin-top: 20px;
+    padding: 10px;
+    cursor: pointer;
+    max-width: 199px;
+}

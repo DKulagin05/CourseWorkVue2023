@@ -1,0 +1,205 @@
+
+@media all and (max-width: 412px) {
+
+    /* header */
+    .wrapper {
+        max-width: 412px;
+        padding: 10px;
+    }
+    .header_links {
+        display: none !important;
+    }
+    .header_links_mobile {
+        display: block;
+    }
+
+    /* MainPage */
+    .header_body {
+        width: 350px;
+    }
+    .head_all_btn {
+        display: none;
+    }
+    .head_booking_wnd {
+        display: flex;
+        margin-left: 10px;
+    }
+    .slider_header {
+        display: flex;
+        justify-content: center;
+    }
+    .slider_header h1 {
+        font-size: 36px;
+    }
+    .specifications_square p,
+    .specifications_person p {
+        font-size: 20px;
+    }
+    .specifications_square img {
+        width: 40px;
+        height: 40px;
+    }
+    .info_booking_header h1 {
+        font-size: 20px;
+    }
+    .advantages_header {
+        display: flex;
+        font-size: 36px;
+        justify-content: center;
+    }
+    .advantages_list {
+        display: flex !important;
+        flex-direction: column !important;
+        flex-wrap: wrap;
+        max-height: 1000px;
+        justify-content: center;
+    }
+
+    /* footer */
+    .footer_links,
+    .footer_pay_var,
+    .footer_logo {
+        display: none;
+    }
+
+    /* Contacts */
+    .contacts_body {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Product */
+    .filters {
+        padding: 0 20px;
+    }
+    .filters .filters-title .filters-title-text {
+        font-family: 'Forum';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 25px;
+        line-height: 100%;
+        color: #3E424B;
+    }
+    .filters .filters-more-fliters {
+        display: none;
+    }
+    .filters .filters-more-mobile {
+        display: block !important;
+        cursor: pointer;
+        display: -webkit-box !important;
+        display: -ms-flexbox !important;
+        display: flex !important;
+        gap: 6vw;
+        margin-bottom: 3vh;
+    }
+    .filters .filters-more-mobile h1 {
+        font-family: 'Jost';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 140%;
+        color: #3E424B;
+    }
+    .first-sec .products-list {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    }
+    .first-sec .products-list .product {
+        width: 90%;
+        margin-bottom: 2vh;
+    }
+
+    /* Promo */
+    .promo-codes {
+        margin-top: 20px;
+        margin-bottom: 10vh;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+    }
+    .promo-codes .promo {
+        margin-top: 20px;
+        background: #F5F5F5;
+        width: 100% !important;
+        min-height: 605px;
+        position: relative;
+    }
+    .promo-codes .promo .promo-img img {
+        width: 100%;
+    }
+    .promo-codes .promo .promo-content {
+        margin-top: 22px;
+        padding: 0 10px !important;
+    }
+    .promo-codes .promo .promo-content h1 {
+        font-family: 'Jost';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 115%;
+        color: #3E424B;
+        margin-bottom: 10px;
+    }
+    .promo-codes .promo .promo-content p {
+        font-family: 'Jost';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 140%;
+        color: #3E424B;
+    }
+    .promo-codes .promo .promo-button {
+        position: absolute;
+        cursor: pointer;
+        top: 500px;
+        left: 5px !important;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        width: 314px;
+        height: 70px;
+        font-family: 'Jost';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 150%;
+        text-align: center;
+        color: #BB8C5F;
+    }
+
+    /* Personal */
+    .personal_info_header h1 {
+        font-size: 36px;
+    }
+    .personal_info_body {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+    .personal_info_booking_body {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+}
