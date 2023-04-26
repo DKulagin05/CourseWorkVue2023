@@ -1,31 +1,30 @@
 <?php
 session_start();
-//include_once 'Database.php';
-//$entityBody = json_decode(file_get_contents('php://input'),true);
-//if($_SESSION['auth']) {
-//    $id_user = $_SESSION['id'];
-//    $conn = new Database();
-//    $check_query = "SELECT * FROM Booking WHERE id_user = '$id_user'";
-//    $result = mysqli_query($conn->getConnection(), $check_query);
-//
-//    if (mysqli_num_rows($result) > 0) {
-//        $user = mysqli_fetch_assoc($result);
-//        echo json_encode(['success' => true, 'message' => 'Все верно']);
-//    } else {
-//        echo json_encode(['success' => false, 'message' => 'Что-то пошло не так']);
-//    }
-//    mysqli_close($conn->getConnection());
-//} else {
-//    echo json_encode(['success' => false, 'message' => 'Пользователь не авторизован']);
-//}
-
 
 include_once 'Database.php';
+include_once "../assets/config/core.php";
+require_once "../assets/libs/php-jwt/src/BeforeValidException.php";
+require_once "../assets/libs/php-jwt/src/ExpiredException.php";
+require_once "../assets/libs/php-jwt/src/SignatureInvalidException.php";
+require_once "../assets/libs/php-jwt/src/JWT.php";
+require_once "../assets/libs/php-jwt/src/Key.php";
+use \Firebase\JWT\JWT;
+use \Firebase\JWT\Key;
+
 $conn = new Database();
-$id_user = $_SESSION['id'];
+
+$entityBodyReg = json_decode(file_get_contents('php://input'),true);
+$key = "your_secret_key";
+$jwt = $entityBodyReg['token'];
+$decoded = JWT::decode($jwt, new Key($key, 'HS256'));
+$id_user = $decoded->data->id;
+
 $check_query = "SELECT * FROM Booking WHERE id_user = '$id_user'";
 $result_booking = mysqli_query($conn->getConnection(), $check_query);
 $data_booking = array();
+
+
+
 while ($row = mysqli_fetch_assoc($result_booking)) {
     $data_booking[] = $row;
 }

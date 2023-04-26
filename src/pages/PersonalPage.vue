@@ -57,6 +57,53 @@
       </div>
     </div>
   </div>
+  <div class="personal_info_booking">
+    <div class="wrapper">
+      <div class="personal_info_booking_body">
+        <div class="personal_info_booking_header">
+          <h1>Ваши бронирования</h1>
+        </div>
+        <div class="products-list">
+          <div class="card_container">
+            <div class="room-card" v-for="room in personalBooking" :key="room.id">
+              <div class="room-img">
+                <img :src="'http://frontend/src/assets/img/products/' + room.img" :alt="room.title">
+              </div>
+              <h2>{{ room.title }}</h2>
+              <div class="room-specifications">
+                <p>Площадь: {{ room.square }} м²</p>
+                <p>Человек: {{ room.people_count }}</p>
+              </div>
+              <p>Цена: {{ room.price }} р/ночь</p>
+              <div class="additional-services">
+                <h2>Дополнительные услуги</h2>
+                <div class="service">
+                  <input type="checkbox" :id="'meal-' + room.id" v-model="room.meal" disabled>
+                  <label :for="'meal-' + room.id">Питание</label>
+                </div>
+                <div class="service">
+                  <input type="checkbox" :id="'special-zones-' + room.id" v-model="room.specialZones" disabled>
+                  <label :for="'special-zones-' + room.id">Посещение спец. зон</label>
+                </div>
+                <div class="service">
+                  <input type="checkbox" :id="'transport-' + room.id" v-model="room.transport" disabled>
+                  <label :for="'transport-' + room.id">Транспорт</label>
+                </div>
+                <div class="service">
+                  <input type="checkbox" :id="'wake-up-' + room.id" v-model="room.wakeUp" disabled>
+                  <label :for="'wake-up-' + room.id">Пробуждение</label>
+                </div>
+              </div>
+              <div class="cancel_btn">
+                <button class="book-button" @click="cancelBooking(room.id)">Отменить</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </template>
 
 <script>
@@ -68,9 +115,33 @@ export default {
       editingProfile: false,
       editedPersonalData: {},
       token: localStorage.getItem('token'),
+      personalBooking: [],
     };
   },
   methods: {
+    cancelBooking(id) {
+      if (confirm('Вы уверены что хотите отменить бронирование?')) {
+        let item_booking = id;
+        let token = localStorage.getItem('token')
+        fetch('http://frontend/src/api/cancelBooking.php', {
+          method: 'POST',
+          body: JSON.stringify({
+            item_booking
+          }),
+          headers: { 'Content-Type': 'application/json' }
+        })
+            .then(response => response.json())
+            .then(data => {
+              if(data.success) {
+                alert(data.message);
+                location.reload();
+              } else {
+                alert(data.message);
+              }
+            });
+      }
+    },
+
     fetchPersonalData() {
       fetch('http://frontend/src/api/personalData.php', {
         method: 'POST',
@@ -115,7 +186,20 @@ export default {
 
   },
   mounted() {
+    let token = localStorage.getItem('token');
     this.fetchPersonalData()
+    fetch('http://frontend/src/api/personalBookingInfo.php', {
+      method: 'POST',
+      body: JSON.stringify({
+        token
+      })
+    })
+        .then(response => response.json())
+        .then(data => {
+          this.personalBooking = data.message;
+        })
+        .catch(error => console.error(error));
+
   }
 }
 </script>

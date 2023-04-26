@@ -1,10 +1,10 @@
 <?php
 
 include_once 'Database.php';
+
 $conn = new Database();
 $entityBodyReg = json_decode(file_get_contents('php://input'), true);
-$item = $entityBodyReg['item_booking'];
-$item_id = $item['id'];
+$item_id = $entityBodyReg['item_booking'];
 $booking_search = "SELECT * FROM Booking WHERE id_room = '$item_id'";
 $result = mysqli_query($conn->getConnection(), $booking_search);
 $data = array();

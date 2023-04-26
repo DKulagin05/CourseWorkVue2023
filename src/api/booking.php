@@ -1,15 +1,28 @@
 <?php
 include_once 'Database.php';
+include_once "../assets/config/core.php";
+require_once "../assets/libs/php-jwt/src/BeforeValidException.php";
+require_once "../assets/libs/php-jwt/src/ExpiredException.php";
+require_once "../assets/libs/php-jwt/src/SignatureInvalidException.php";
+require_once "../assets/libs/php-jwt/src/JWT.php";
+require_once "../assets/libs/php-jwt/src/Key.php";
+use \Firebase\JWT\JWT;
+use \Firebase\JWT\Key;
 $conn = new Database();
 $entityBodyReg = json_decode(file_get_contents('php://input'),true);
-$item = $entityBodyReg['item_booking'];
-$item_id = $item['id'];
+$item_id = $entityBodyReg['item_booking'];
+$InDate = $entityBodyReg['InDate'];
+$OutDate = $entityBodyReg['OutDate'];
 $array_services = $entityBodyReg['array_services'];
-$user_id = $entityBodyReg['userId'];
-$today = date('Y-m-d');
-$today = "'$today'";
+
+$key = "your_secret_key";
+$jwt = $entityBodyReg['token'];
+$decoded = JWT::decode($jwt, new Key($key, 'HS256'));
+$user_id = $decoded->data->id;
+
+
 if ($user_id != '') {
-    $booking_query = "INSERT INTO Booking (id_user, id_room) VALUES ('$user_id','$item_id')";
+    $booking_query = "INSERT INTO Booking (id_user, id_room, arrival_date, departure_date) VALUES ('$user_id','$item_id','$InDate','$OutDate')";
     mysqli_query($conn->getConnection(), $booking_query);
     $booking_query_search = "select * from Booking where id_user ='$user_id' and id_room = '$item_id'";
     $result = mysqli_query($conn->getConnection(), $booking_query_search);
@@ -26,7 +39,7 @@ if ($user_id != '') {
     mysqli_query($conn->getConnection(), $booking_services_query);
     echo json_encode(['success' => true,
         'message' => 'Вы успешно забронировали номер ',
-        'tet' => $array_services]);
+        'tet' => $booking_query]);
 } else {
     echo json_encode(['success' => false,
         'message' => 'Для бронироания необходимо зарегистрироватся на сайте']);
