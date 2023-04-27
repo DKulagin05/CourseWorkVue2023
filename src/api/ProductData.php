@@ -11,10 +11,10 @@ if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
         $data[] = $row;
     }
+    header('Content-Type: application/json');
     echo json_encode(['success' => true, 'message' => $data]);
 } else {
     echo json_encode(['success' => false, 'message' => 'Свободных номеров нет, возвращайтесь позже']);
 }
 
-header('Content-Type: application/json');
 mysqli_close($conn->getConnection());

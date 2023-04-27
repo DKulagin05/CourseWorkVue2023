@@ -43,3 +43,63 @@ export default {
   },
 };
 </script>
+<style scoped>
+.main-sec {
+  padding: 50px 0;
+}
+
+.promo-codes {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.promo {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  margin: 20px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.promo:hover {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+  transform: translateY(-5px);
+}
+
+.promo-img {
+  width: 100%;
+  height: 150px;
+  overflow: hidden;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.promo-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.promo-content {
+  padding: 20px;
+  text-align: center;
+}
+
+.promo-content h1 {
+  margin-bottom: 10px;
+  font-size: 24px;
+  font-weight: 600;
+  color: #333333;
+}
+
+.promo-content p {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #666666;
+}
+</style>

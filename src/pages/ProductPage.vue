@@ -43,27 +43,41 @@
         <div class="additional-services">
           <h2>Дополнительные услуги</h2>
           <div class="service">
-            <input type="checkbox" :id="'meal-' + room.id" v-model="room.meal">
+            <input type="checkbox" :id="'meal-' + room.id" v-model="room.meal" @change="mealChecked">
             <label :for="'meal-' + room.id">Питание</label>
           </div>
           <div class="service">
-            <input type="checkbox" :id="'special-zones-' + room.id" v-model="room.specialZones">
+            <input type="checkbox" :id="'special-zones-' + room.id" v-model="room.specialZones" @change="specialZonesChecked">
             <label :for="'special-zones-' + room.id">Посещение спец. зон</label>
           </div>
           <div class="service">
-            <input type="checkbox" :id="'transport-' + room.id" v-model="room.transport">
+            <input type="checkbox" :id="'transport-' + room.id" v-model="room.transport" @change="transportChecked">
             <label :for="'transport-' + room.id">Транспорт</label>
           </div>
           <div class="service">
-            <input type="checkbox" :id="'wake-up-' + room.id" v-model="room.wakeUp">
+            <input type="checkbox" :id="'wake-up-' + room.id" v-model="room.wakeUp" @change="wakeUpChecked">
             <label :for="'wake-up-' + room.id">Пробуждение</label>
           </div>
         </div>
         <div class="room-booking">
           <div>
-            <button class="book-button" @click="showModal = true; selectRoom(room)">Забронировать</button>
+            <button class="book-button" @click="showModal = true; selectRoom(room); ProductAdd(room)">Подробнее</button>
             <div v-if="showModal" class="modal">
               <div class="modal-content">
+                <div class="modal-info">
+                  <div class="modal-description">
+                    <h3>{{ this.selectedRoom.description }}</h3>
+                  </div>
+                  <div class="modal-add-info">
+                    <ul>
+                      <h3>Этот номер включает в себя:</h3>
+                      <li v-if="this.Minibar">Минибар</li>
+                      <li v-if="this.TV">TV</li>
+                      <li v-if="this.WiFi">WiFi</li>
+                      <li v-if="this.Conditioner">Кондиционер</li>
+                    </ul>
+                  </div>
+                </div>
                 <div class="modal-header">
                   <h3>Выберите даты</h3>
                 </div>
@@ -78,7 +92,7 @@
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button @click="bookRoom(selectedRoom.id)">Применить</button>
+                  <button @click="bookRoom(selectedRoom.id)">Забронировать</button>
                   <button @click="showModal = false">Отмена</button>
                 </div>
               </div>
@@ -113,21 +127,43 @@ export default {
       checkInDate: null,
       checkOutDate: null,
       rooms: [],
+      Minibar: false,
+      TV: false,
+      WiFi: false,
+      Conditioner: false,
+    }
+  },
+  filters: {
+    toNumber(value) {
+      return value ? 1 : 0
     }
   },
   methods: {
+    mealChecked() {
+      this.meal = !this.meal
+    },
+    specialZonesChecked() {
+      this.specialZones = !this.specialZones
+    },
+    transportChecked() {
+      this.transport = !this.transport
+    },
+    wakeUpChecked() {
+      this.wakeUp = !this.wakeUp
+    },
     selectRoom(room) {
       this.selectedRoom = room;
+
     },
     bookRoom(id) {
       console.log('Book room with id:', this.selectedRoom.id, 'Check-in date:', this.checkInDate, 'Check-out date:', this.checkOutDate);
       let item_booking = this.selectedRoom.id;
       const token = localStorage.getItem('token');
       let array_services = [
-        1,
-        1,
-        0,
-        0
+        this.wakeUp ? 1:0,
+        this.meal ? 1:0,
+        this.specialZones ? 1:0,
+        this.transport ? 1:0,
       ]
       let InDate = this.checkInDate
       let OutDate = this.checkOutDate
@@ -156,6 +192,26 @@ export default {
           });
 
       this.showModal = false;
+    },
+    ProductAdd(room) {
+      fetch('http://frontend/src/api/ProductDataAdd.php', {
+        method: 'POST',
+        body: JSON.stringify({
+          item_id: room['id'],
+          token: localStorage.getItem('token')
+        })
+      })
+          .then(response => response.json())
+          .then(data => {
+            this.Minibar = parseInt(data[0]['Minibar'])
+            this.TV = parseInt(data[0]['TV'])
+            this.WiFi = parseInt(data[0]['WiFi'])
+            this.Conditioner = parseInt(data[0]['Conditioner'])
+            // let arr = [this.TV,this.Minibar,this.WiFi,this.Conditioner]
+            let item_booking = room['id'];
+
+          })
+          .catch(error => console.error(error));
     }
   },
   mounted() {
@@ -166,9 +222,9 @@ export default {
         .then(response => response.json())
         .then(data => {
           this.rooms = data.message;
-          console.log(this.rooms)
         })
         .catch(error => console.error(error));
+
   }
 }
 </script>
@@ -246,7 +302,14 @@ input[type='date'] {
   margin-top: 0;
   font-size: 1.5rem;
 }
-
+.room-img {
+  width: 310px;
+}
+.room-card img {
+  height: 200px;
+  width: 100%;
+  border-radius: 5px 5px 0 0 ;
+}
 .room-card p {
   margin: 10px 0;
 }

@@ -34,7 +34,6 @@
             <div style="position:relative;overflow:hidden;"><a href="https://yandex.ru/maps/56/chelyabinsk/?utm_medium=mapframe&utm_source=maps" style="color:#eee;font-size:12px;position:absolute;top:0px;">Челябинск</a><a href="https://yandex.ru/maps/56/chelyabinsk/?ll=61.444611%2C55.224473&mode=routes&rtext=55.151039%2C61.377194~55.298084%2C61.509242&rtt=taxi&ruri=ymapsbm1%3A%2F%2Forg%3Foid%3D1233654449~ymapsbm1%3A%2F%2Forg%3Foid%3D1114754702&utm_medium=mapframe&utm_source=maps&z=12.29" style="color:#eee;font-size:12px;position:absolute;top:14px;">Яндекс Карты</a><iframe src="https://yandex.ru/map-widget/v1/?ll=61.444611%2C55.224473&mode=routes&rtext=55.151039%2C61.377194~55.298084%2C61.509242&rtt=taxi&ruri=ymapsbm1%3A%2F%2Forg%3Foid%3D1233654449~ymapsbm1%3A%2F%2Forg%3Foid%3D1114754702&z=12.29" width="560" height="400" frameborder="1" allowfullscreen="true" style="position:relative;"></iframe></div>
           </div>
         </div>
-
       </div>
     </div>
   </div>
@@ -47,5 +46,86 @@ export default {
 </script>
 
 <style scoped>
+.contacts {
+  font-family: Arial, sans-serif;
+  padding-bottom: 100px;
+}
 
+.contacts_body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.contacts_info {
+  flex-basis: 40%;
+  background-color: #FFFFFF;
+  padding: 40px;
+  border-radius: 5px;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.contacts_info_unit {
+  margin-bottom: 40px;
+}
+
+.contacts_info_unit h1 {
+  font-size: 20px;
+  color: #575757;
+  margin-bottom: 10px;
+}
+
+.contacts_info_unit h2 {
+  font-size: 28px;
+  color: #1ba39e;
+  margin: 0;
+}
+
+.contacts_info_unit h4 {
+  font-size: 18px;
+  color: #1ba39e;
+  margin: 0;
+}
+
+.how_to_get_to_us {
+  margin-top: 10px;
+}
+
+.how_to_get_to_us_header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.how_to_get_to_us_header h1 {
+  font-size: 28px;
+  color: #1ba39e;
+  margin: 0;
+}
+
+.how_to_get_to_us_maps {
+  display: flex;
+  justify-content: space-between;
+}
+
+.how_to_get_to_us_map_train,
+.how_to_get_to_us_map_flight {
+  flex-basis: 48%;
+  background-color: #FFFFFF;
+  padding: 40px;
+  border-radius: 5px;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.how_to_get_to_us_map_train h1,
+.how_to_get_to_us_map_flight h1 {
+  font-size: 20px;
+  color: #575757;
+  margin-bottom: 20px;
+}
+
+.how_to_get_to_us_map_train div,
+.how_to_get_to_us_map_flight div {
+  width: 100%;
+  height: 400px;
+}
 </style>

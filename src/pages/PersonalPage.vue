@@ -157,7 +157,9 @@ export default {
           })
           .catch(error => console.log(error));
     },
+    checkboxLoad(){
 
+    },
     editProfile() {
       const formData = new FormData();
       formData.append('name', this.personalData.name);
@@ -197,6 +199,7 @@ export default {
         .then(response => response.json())
         .then(data => {
           this.personalBooking = data.message;
+          console.log(data.result)
         })
         .catch(error => console.error(error));
 
@@ -205,6 +208,17 @@ export default {
 </script>
 
 <style scoped>
+.personal_info_booking {
+  padding-bottom: 100px;
+}
+.room-img {
+  width: 310px;
+}
+.room-card img {
+  height: 200px;
+  width: 100%;
+  border-radius: 5px 5px 0 0 ;
+}
 .personal_info_body {}
 .products-list {
   display: flex;

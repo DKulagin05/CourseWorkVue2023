@@ -85,7 +85,7 @@ select {
     --light-gray: #3E424B;
     --light-brown: #916d48;
     --white: #FFFFFF;
-    --cyan: #1BA39E;
+    --cyan: #B0C4DE;
     --brown: #BB8C5F;
 }
 .true {
@@ -360,79 +360,77 @@ select {
     flex-direction: column;
 }
 footer {
-    background: black;
-    color: white;
     position: absolute;
-    bottom: -100px;
+    bottom: 0px;
     width: 100%;
 }
-.footer_body {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px;
-}
-.footer_input {
-    display: flex;
-}
-.footer_input input[type='text'] {
-    padding: 10px 20px 10px 10px;
-    width: 250px;
-    border: 1px solid var(--white);
-    background-color: transparent;
-    color: white;
-    font-family: 'Montserrat';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 34px;
-    outline: none;
-}
-.footer_input input[type='submit'] {
-    background: #D9D9D9;
-    color: rgba(0, 0, 0, 0.5);
-    font-family: 'Montserrat';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 34px;
-    padding: 0 15px;
-}
-.footer_input input[type='submit']:hover {
-    background-color: black;
-    color: white;
-    border: white 1px dashed;
-}
-.footer_links {
-    display: flex;
-    font-family: 'Montserrat';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 24px;
-    line-height: 29px;
-    text-decoration: none;
-    color: var(--white);
-    gap: 50px;
-}
-.footer_links a {
-    text-decoration: none;
-    color: white;
-}
-.footer_links a:hover {
-    cursor: pointer;
-}
-.footer_pay_var {
-    display: flex;
-    gap: 50px;
-}
-.footer_pay_var img {
-    width: 50px;
-    height: 50px;
-}
-.footer_logo img {
-    width: 65px;
-    height: 65px;
-}
+/*.footer_body {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    justify-content: space-between;*/
+/*    padding: 10px;*/
+/*}*/
+/*.footer_input {*/
+/*    display: flex;*/
+/*}*/
+/*.footer_input input[type='text'] {*/
+/*    padding: 10px 20px 10px 10px;*/
+/*    width: 250px;*/
+/*    border: 1px solid var(--white);*/
+/*    background-color: transparent;*/
+/*    color: white;*/
+/*    font-family: 'Montserrat';*/
+/*    font-style: normal;*/
+/*    font-weight: 400;*/
+/*    font-size: 16px;*/
+/*    line-height: 34px;*/
+/*    outline: none;*/
+/*}*/
+/*.footer_input input[type='submit'] {*/
+/*    background: #D9D9D9;*/
+/*    color: rgba(0, 0, 0, 0.5);*/
+/*    font-family: 'Montserrat';*/
+/*    font-style: normal;*/
+/*    font-weight: 400;*/
+/*    font-size: 16px;*/
+/*    line-height: 34px;*/
+/*    padding: 0 15px;*/
+/*}*/
+/*.footer_input input[type='submit']:hover {*/
+/*    background-color: black;*/
+/*    color: white;*/
+/*    border: white 1px dashed;*/
+/*}*/
+/*.footer_links {*/
+/*    display: flex;*/
+/*    font-family: 'Montserrat';*/
+/*    font-style: normal;*/
+/*    font-weight: 500;*/
+/*    font-size: 24px;*/
+/*    line-height: 29px;*/
+/*    text-decoration: none;*/
+/*    color: var(--white);*/
+/*    gap: 50px;*/
+/*}*/
+/*.footer_links a {*/
+/*    text-decoration: none;*/
+/*    color: white;*/
+/*}*/
+/*.footer_links a:hover {*/
+/*    cursor: pointer;*/
+/*}*/
+/*.footer_pay_var {*/
+/*    display: flex;*/
+/*    gap: 50px;*/
+/*}*/
+/*.footer_pay_var img {*/
+/*    width: 50px;*/
+/*    height: 50px;*/
+/*}*/
+/*.footer_logo img {*/
+/*    width: 65px;*/
+/*    height: 65px;*/
+/*}*/
 
 
 
@@ -473,6 +471,7 @@ footer {
 }
 .personal_info_booking {
     margin-top: 150px;
+    margin-bottom: 0;
 }
 .personal_info_booking_unit {
     background: #CCECEB;
@@ -620,8 +619,8 @@ input[type='date'] {
     align-items: center;
 }
 .header_profile a:last-child{
-    border-radius: 5px;
-    border: gray 1px dashed;
+    /*border-radius: 5px;*/
+    border-top: gray 1px dashed;
     padding: 5px;
 }
 .reg_body {
@@ -704,7 +703,7 @@ input[type='email']{
     border: none;
     border-bottom: 1px solid black;
 
-    border-radius: 5px 5px 0 0 ;
+    /*border-radius: 5px 5px 0 0 ;*/
 }
 textarea[id="interests"],
 textarea[id="hobbies"]{
@@ -750,7 +749,7 @@ textarea[id="hobbies"]{
 
 }
 .personal_info_booking {
-    margin-bottom: 100px;
+    /*margin-bottom: 100px;*/
 }
 .personal_info_booking_unit {
     max-width: 300px;
@@ -951,90 +950,90 @@ textarea[id="hobbies"]{
 
 /* Promo */
 
-.main-sec .main-sec-title {
-    margin-top: 2vh;
-    font-family: 'Forum';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 60px;
-    line-height: 100%;
-    color: var(--light-gray);
-}
+/*.main-sec .main-sec-title {*/
+/*    margin-top: 2vh;*/
+/*    font-family: 'Forum';*/
+/*    font-style: normal;*/
+/*    font-weight: 400;*/
+/*    font-size: 60px;*/
+/*    line-height: 100%;*/
+/*    color: var(--light-gray);*/
+/*}*/
 
-.main-sec .promo-codes {
-    margin-top: 20px;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-}
+/*.main-sec .promo-codes {*/
+/*    margin-top: 20px;*/
+/*    display: -webkit-box;*/
+/*    display: -ms-flexbox;*/
+/*    display: flex;*/
+/*    -webkit-box-pack: justify;*/
+/*    -ms-flex-pack: justify;*/
+/*    justify-content: space-between;*/
+/*    -ms-flex-wrap: wrap;*/
+/*    flex-wrap: wrap;*/
+/*}*/
 
-.main-sec .promo-codes .promo {
-    margin-top: 20px;
-    background: #F5F5F5;
-    margin-bottom: 150px;
-    width: 32%;
-    /*min-height: 605px;*/
-    padding-bottom: 15px;
-    position: relative;
-}
+/*.main-sec .promo-codes .promo {*/
+/*    margin-top: 20px;*/
+/*    background: #F5F5F5;*/
+/*    margin-bottom: 150px;*/
+/*    width: 32%;*/
+/*    !*min-height: 605px;*!*/
+/*    padding-bottom: 15px;*/
+/*    position: relative;*/
+/*}*/
 
-.main-sec .promo-codes .promo .promo-img img {
-    width: 100%;
-}
+/*.main-sec .promo-codes .promo .promo-img img {*/
+/*    width: 100%;*/
+/*}*/
 
-.main-sec .promo-codes .promo .promo-content {
-    margin-top: 22px;
-    padding: 0 40px;
-}
+/*.main-sec .promo-codes .promo .promo-content {*/
+/*    margin-top: 22px;*/
+/*    padding: 0 40px;*/
+/*}*/
 
-.main-sec .promo-codes .promo .promo-content h1 {
-    font-family: 'Jost';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 24px;
-    line-height: 115%;
-    color: var(--light-gray);
-    margin-bottom: 10px;
-}
+/*.main-sec .promo-codes .promo .promo-content h1 {*/
+/*    font-family: 'Jost';*/
+/*    font-style: normal;*/
+/*    font-weight: 700;*/
+/*    font-size: 24px;*/
+/*    line-height: 115%;*/
+/*    color: var(--light-gray);*/
+/*    margin-bottom: 10px;*/
+/*}*/
 
-.main-sec .promo-codes .promo .promo-content p {
-    font-family: 'Jost';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 140%;
-    color: var(--light-gray);
-}
+/*.main-sec .promo-codes .promo .promo-content p {*/
+/*    font-family: 'Jost';*/
+/*    font-style: normal;*/
+/*    font-weight: 400;*/
+/*    font-size: 16px;*/
+/*    line-height: 140%;*/
+/*    color: var(--light-gray);*/
+/*}*/
 
-.main-sec .promo-codes .promo .promo-button {
-    position: absolute;
-    cursor: pointer;
-    top: 500px;
-    left: 30px;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    width: 332px;
-    height: 70px;
-    font-family: 'Jost';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 150%;
-    text-align: center;
-    color: var(--brown);
-}
+/*.main-sec .promo-codes .promo .promo-button {*/
+/*    position: absolute;*/
+/*    cursor: pointer;*/
+/*    top: 500px;*/
+/*    left: 30px;*/
+/*    display: -webkit-box;*/
+/*    display: -ms-flexbox;*/
+/*    display: flex;*/
+/*    -webkit-box-pack: center;*/
+/*    -ms-flex-pack: center;*/
+/*    justify-content: center;*/
+/*    -webkit-box-align: center;*/
+/*    -ms-flex-align: center;*/
+/*    align-items: center;*/
+/*    width: 332px;*/
+/*    height: 70px;*/
+/*    font-family: 'Jost';*/
+/*    font-style: normal;*/
+/*    font-weight: 400;*/
+/*    font-size: 20px;*/
+/*    line-height: 150%;*/
+/*    text-align: center;*/
+/*    color: var(--brown);*/
+/*}*/
 
 
 /* services */

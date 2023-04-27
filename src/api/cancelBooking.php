@@ -19,8 +19,10 @@ mysqli_query($conn->getConnection(), $booking_search);
 $booking_query = "DELETE FROM Booking WHERE id_room = '$item_id'";
 mysqli_query($conn->getConnection(), $booking_query);
 
-echo json_encode(['success' => true,
-    'message' => 'Вы отменили бронирование']);
+echo json_encode([
+    'success' => true,
+    'message' => 'Вы отменили бронирование'
+]);
 
 
 
