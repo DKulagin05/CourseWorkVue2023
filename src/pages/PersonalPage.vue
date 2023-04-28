@@ -26,29 +26,29 @@
               <router-link to="/admin" class="admin_panel_btn">Админ панель</router-link>
             </div>
             <div class="edit_profile_btn" @click="editProfile">Редактировать профиль</div>
-<!--            <form class="edit_personal_data hide" v-if="editingProfile" @submit.prevent="saveChanges">-->
-<!--              <div style="margin-bottom: 20px;">-->
-<!--                <label for="edit_name">Имя:</label>-->
-<!--                <input type="text" v-model="editedPersonalData.name" name="edit_name" id="edit_name" required>-->
+            <form class="edit_personal_data" v-if="editMode" @submit.prevent="saveChanges">
+              <div style="margin-bottom: 20px;">
+                <label for="edit_name">Имя:</label>
+                <input type="text" v-model="new_name" name="edit_name" id="edit_name" required>
 
-<!--                <label for="edit_surname">Фамилия:</label>-->
-<!--                <input type="text" v-model="editedPersonalData.surname" name="edit_surname" id="edit_surname" required>-->
+                <label for="edit_surname">Фамилия:</label>
+                <input type="text" v-model="new_surname" name="edit_surname" id="edit_surname" required>
 
-<!--                <label for="edit_patronymic">Отчетство:</label>-->
-<!--                <input type="text" v-model="editedPersonalData.patronymic" name="edit_patronymic" id="edit_patronymic">-->
-<!--              </div>-->
-<!--              <div style="margin-bottom: 20px;">-->
-<!--                <label for="edit_phone">Телефон:</label>-->
-<!--                <input type="text" v-model="editedPersonalData.phone" name="edit_phone" id="edit_phone" required>-->
+                <label for="edit_patronymic">Отчетство:</label>
+                <input type="text" v-model="new_patronymic" name="edit_patronymic" id="edit_patronymic">
+              </div>
+              <div style="margin-bottom: 20px;">
+                <label for="edit_phone">Телефон:</label>
+                <input type="text" v-model="new_phone" name="edit_phone" id="edit_phone" required>
 
-<!--                <label for="edit_mail">Email:</label>-->
-<!--                <input type="text" v-model="editedPersonalData.email" name="edit_mail" id="edit_mail" required>-->
+                <label for="edit_mail">Email:</label>
+                <input type="text" v-model="new_email" name="edit_mail" id="edit_mail" required>
 
-<!--                <label for="edit_profile_img">Изображение профиля:</label>-->
-<!--                <input type="file" v-model="editedPersonalData.profileImg" name="edit_profile_img" id="edit_profile_img">-->
-<!--              </div>-->
-<!--              <input type="submit" class="save_changes">-->
-<!--            </form>-->
+                <label for="edit_profile_img">Изображение профиля:</label>
+                <input type="file" @change="onImgSelected"  name="edit_profile_img" id="edit_profile_img">
+              </div>
+              <input type="submit" class="save_changes" @click="saveChanges">
+            </form>
           </div>
         </div>
         <div v-else>
@@ -67,35 +67,35 @@
           <div class="card_container">
             <div class="room-card" v-for="room in personalBooking" :key="room.id">
               <div class="room-img">
-                <img :src="'http://frontend/src/assets/img/products/' + room.img" :alt="room.title">
+                <img :src="'http://frontend/src/assets/img/products/' + room[1].img" :alt="room[1].title">
               </div>
-              <h2>{{ room.title }}</h2>
+              <h2>{{ room[1].title }}</h2>
               <div class="room-specifications">
-                <p>Площадь: {{ room.square }} м²</p>
-                <p>Человек: {{ room.people_count }}</p>
+                <p>Площадь: {{ room[1].square }} м²</p>
+                <p>Человек: {{ room[1].people_count }}</p>
               </div>
-              <p>Цена: {{ room.price }} р/ночь</p>
+              <p>Цена: {{ room[1].price }} р/ночь</p>
               <div class="additional-services">
                 <h2>Дополнительные услуги</h2>
                 <div class="service">
-                  <input type="checkbox" :id="'meal-' + room.id" v-model="room.meal" disabled>
-                  <label :for="'meal-' + room.id">Питание</label>
+                  <input type="checkbox" :id="'meal-' + room[0].id" disabled :checked="parseInt(room[0].dinner)">
+                  <label :for="'meal-' + room[0].id">Питание</label>
                 </div>
                 <div class="service">
-                  <input type="checkbox" :id="'special-zones-' + room.id" v-model="room.specialZones" disabled>
-                  <label :for="'special-zones-' + room.id">Посещение спец. зон</label>
+                  <input type="checkbox" :id="'special-zones-' + room[0].id" disabled :checked="parseInt(room[0].zones)">
+                  <label :for="'special-zones-' + room[0].id">Посещение спец. зон</label>
                 </div>
                 <div class="service">
-                  <input type="checkbox" :id="'transport-' + room.id" v-model="room.transport" disabled>
-                  <label :for="'transport-' + room.id">Транспорт</label>
+                  <input type="checkbox" :id="'transport-' + room[0].id" disabled :checked="parseInt(room[0].transport)">
+                  <label :for="'transport-' + room[0].id">Транспорт</label>
                 </div>
                 <div class="service">
-                  <input type="checkbox" :id="'wake-up-' + room.id" v-model="room.wakeUp" disabled>
-                  <label :for="'wake-up-' + room.id">Пробуждение</label>
+                  <input type="checkbox" :id="'wake-up-' + room[0].id" disabled :checked="parseInt(room[0].awakening)">
+                  <label :for="'wake-up-' + room[0].id">Пробуждение</label>
                 </div>
               </div>
               <div class="cancel_btn">
-                <button class="book-button" @click="cancelBooking(room.id)">Отменить</button>
+                <button class="book-button" @click="cancelBooking(room[1].id)">Отменить</button>
               </div>
             </div>
           </div>
@@ -112,13 +112,22 @@ export default {
     return {
       personalDataLoaded: false,
       personalData: {},
-      editingProfile: false,
-      editedPersonalData: {},
+      editMode: false,
+      new_email: '',
+      new_phone: '',
+      new_patronymic: '',
+      new_surname: '',
+      new_name: '',
+      edit_profile_img: null,
+      selectedImg: null,
       token: localStorage.getItem('token'),
       personalBooking: [],
     };
   },
   methods: {
+    onImgSelected(event) {
+      this.selectedImg = event.target.files[0]
+    },
     cancelBooking(id) {
       if (confirm('Вы уверены что хотите отменить бронирование?')) {
         let item_booking = id;
@@ -157,35 +166,36 @@ export default {
           })
           .catch(error => console.log(error));
     },
-    checkboxLoad(){
-
-    },
     editProfile() {
+      this.editMode = !this.editMode
+    },
+    saveChanges() {
       const formData = new FormData();
-      formData.append('name', this.personalData.name);
-      formData.append('surname', this.personalData.surname);
-      formData.append('patronymic', this.personalData.patronymic);
-      formData.append('phone', this.personalData.phone);
-      formData.append('email', this.personalData.email);
-      formData.append('profileImg', this.profileImg);
-
+      let token = localStorage.getItem('token');
+      formData.append('token', token);
+      formData.append('new_name', this.new_name);
+      formData.append('new_surname', this.new_surname);
+      formData.append('new_patronymic', this.new_patronymic);
+      formData.append('new_phone', this.new_phone);
+      formData.append('new_email', this.new_email);
+      formData.append('edit_img', this.selectedImg);
+      console.log(formData)
       fetch('http://frontend/src/api/editPersonalData.php', {
         method: 'POST',
         body: formData,
-        headers: { 'Authorization': `Bearer ${this.token}` }
       })
           .then(response => response.json())
           .then(data => {
-            this.editMode = false;
-            this.fetchPersonalData();
+            if (data.success) {
+              alert(data.message)
+              this.editMode = false;
+              this.fetchPersonalData();
+            } else {
+              alert(data.message)
+            }
           })
           .catch(error => console.log(error));
     },
-
-    onProfileImgChange(e) {
-      this.profileImg = e.target.files[0];
-    }
-
   },
   mounted() {
     let token = localStorage.getItem('token');
@@ -198,8 +208,7 @@ export default {
     })
         .then(response => response.json())
         .then(data => {
-          this.personalBooking = data.message;
-          console.log(data.result)
+          this.personalBooking = data.result;
         })
         .catch(error => console.error(error));
 

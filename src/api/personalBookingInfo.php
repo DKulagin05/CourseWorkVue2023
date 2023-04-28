@@ -35,7 +35,7 @@ for ($i=0;$i<count($data_booking);$i++) {
     $all_booking = $data_booking[$i]['id_room'];
     $id_booking = $data_booking[$i]['id'];
 
-    $sql_services = "SELECT * FROM Booking_services WHERE id_booking = '$id_booking'";
+    $sql_services = "SELECT * FROM Booking WHERE id = '$id_booking'";
     $result_services = mysqli_query($conn->getConnection(), $sql_services);
     while ($row = mysqli_fetch_assoc($result_services)) {
         $temp_data[] = $row;
@@ -49,9 +49,6 @@ for ($i=0;$i<count($data_booking);$i++) {
     }
     $result_data[] = $temp_data;
 }
-//header('Content-Type: application/json');
-//echo json_encode($data);
-//mysqli_close($conn->getConnection());
 
 header('Content-Type: application/json');
 echo json_encode(['success' => true,

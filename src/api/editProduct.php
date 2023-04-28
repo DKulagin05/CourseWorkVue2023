@@ -3,34 +3,49 @@ include_once 'Database.php';
 $conn = new Database();
 
 $entityBodyReg = json_decode(file_get_contents('php://input'),true);
-$id = $_POST['id'];
-$new_title = $_POST['new_title'];
-$new_description = $_POST['new_description'];
-$new_people_count = $_POST['new_people_count'];
-$new_square = $_POST['new_square'];
-$new_price = $_POST['new_price'];
+$id = $_POST['edit_id'];
+$edit_title= $_POST['edit_title'];
+$edit_description = $_POST['edit_description'];
+$edit_people_count = $_POST['edit_people_count'];
+$edit_square = $_POST['edit_square'];
+$edit_price = $_POST['edit_price'];
+$edit_minibar = $_POST['edit_minibar'];
+$edit_tv = $_POST['edit_tv'];
+$edit_wifi = $_POST['edit_wifi'];
+$edit_conditioner = $_POST['edit_conditioner'];
 
-if (empty($new_title) || empty($new_description)
-    || empty($new_people_count) || empty($new_square)
-    || empty($new_price)) {
+if (empty($edit_title) || empty($edit_description)
+    || empty($edit_people_count) || empty($edit_square)
+    || empty($edit_price)) {
     $result = array(
         'success' => false,
         'message' => 'Заполните все поля'
     );
 } else {
-    $img =  "C:\\OSPanel\\domains\\Coursovaya\\assets\\img\\products\\" . $_FILES['edit_img']['name'];
-    move_uploaded_file($_FILES['edit_img']['tmp_name'], $img);
-    $img = $_FILES['edit_img']['name'];
-    $query = "UPDATE Rooms
-              SET title = '$new_title', description = '$new_description', 
-                  people_count = '$new_people_count', square = '$new_square',
-                  price = '$new_price', img = '$img'
+
+    $img =  "C:\\OSPanel\\domains\\frontend\\src\\assets\\img\\products\\" . $_FILES['edit_product_img']['name'];
+    move_uploaded_file($_FILES['edit_product_img']['tmp_name'], $img);
+    if ($_FILES['edit_product_img'] === null) {
+        $query = "UPDATE Rooms
+              SET `title` = '$edit_title', `description` = '$edit_description', `people_count` = '$edit_people_count', 
+                  `square` = '$edit_square', `price` = '$edit_price',  `TV` = '$edit_tv', `WiFi` = '$edit_wifi', `Conditioner` = '$edit_conditioner', 
+                  `Minibar` = '$edit_minibar'
               WHERE id = '$id';";
+    } else {
+        $img = $_FILES['edit_product_img']['name'];
+        $query = "UPDATE Rooms
+              SET `title` = '$edit_title', `description` = '$edit_description', `people_count` = '$edit_people_count', 
+                  `square` = '$edit_square', `price` = '$edit_price',  `TV` = '$edit_tv', `WiFi` = '$edit_wifi', `Conditioner` = '$edit_conditioner', 
+                  `Minibar` = '$edit_minibar', `img` = '$img'
+              WHERE id = '$id';";
+    }
+
     mysqli_query($conn->getConnection(), $query);
 
     $result = array(
         'success' => true,
-        'message' => 'Данные успешно изменены'
+        'message' => 'Данные успешно изменены',
+        'tet' => $query
     );
 }
 

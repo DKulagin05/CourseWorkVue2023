@@ -29,7 +29,7 @@
 <!--      </div>-->
 <!--    </section>-->
     <div class="card_container">
-      <div class="room-card" v-for="room in rooms" :key="room.id">
+      <div style="position: relative" class="room-card" v-for="room in rooms" :key="room.id">
         <div class="room-img">
           <img :src="'http://frontend/src/assets/img/products/' + room.img" :alt="room.title">
         </div>
@@ -39,43 +39,43 @@
           <p>Человек: {{ room.people_count }}</p>
         </div>
         <p>Цена: {{ room.price }} р/ночь</p>
-
-        <div class="additional-services">
-          <h2>Дополнительные услуги</h2>
-          <div class="service">
-            <input type="checkbox" :id="'meal-' + room.id" v-model="room.meal" @change="mealChecked">
-            <label :for="'meal-' + room.id">Питание</label>
-          </div>
-          <div class="service">
-            <input type="checkbox" :id="'special-zones-' + room.id" v-model="room.specialZones" @change="specialZonesChecked">
-            <label :for="'special-zones-' + room.id">Посещение спец. зон</label>
-          </div>
-          <div class="service">
-            <input type="checkbox" :id="'transport-' + room.id" v-model="room.transport" @change="transportChecked">
-            <label :for="'transport-' + room.id">Транспорт</label>
-          </div>
-          <div class="service">
-            <input type="checkbox" :id="'wake-up-' + room.id" v-model="room.wakeUp" @change="wakeUpChecked">
-            <label :for="'wake-up-' + room.id">Пробуждение</label>
-          </div>
+        <div class="modal-add-info">
+          <ul>
+            <h3>Этот номер включает в себя:</h3>
+            <li v-if="parseInt(room.Minibar)">Минибар</li>
+            <li v-if="parseInt(room.TV)">TV</li>
+            <li v-if="parseInt(room.WiFi)">WiFi</li>
+            <li v-if="parseInt(room.Conditioner)">Кондиционер</li>
+          </ul>
         </div>
+
         <div class="room-booking">
           <div>
-            <button class="book-button" @click="showModal = true; selectRoom(room); ProductAdd(room)">Подробнее</button>
+            <button style="position: absolute; bottom: 20px; right: 20px; margin-top: 50px;" class="book-button" @click="showModal = true; selectRoom(room)">Подробнее</button>
             <div v-if="showModal" class="modal">
               <div class="modal-content">
                 <div class="modal-info">
                   <div class="modal-description">
                     <h3>{{ this.selectedRoom.description }}</h3>
                   </div>
-                  <div class="modal-add-info">
-                    <ul>
-                      <h3>Этот номер включает в себя:</h3>
-                      <li v-if="this.Minibar">Минибар</li>
-                      <li v-if="this.TV">TV</li>
-                      <li v-if="this.WiFi">WiFi</li>
-                      <li v-if="this.Conditioner">Кондиционер</li>
-                    </ul>
+                  <div class="additional-services">
+                    <h2>Дополнительные услуги</h2>
+                    <div class="service">
+                      <input type="checkbox" :id="'meal-' + room.id" v-model="room.meal" @change="mealChecked">
+                      <label :for="'meal-' + room.id">Питание</label>
+                    </div>
+                    <div class="service">
+                      <input type="checkbox" :id="'special-zones-' + room.id" v-model="room.specialZones" @change="specialZonesChecked">
+                      <label :for="'special-zones-' + room.id">Посещение спец. зон</label>
+                    </div>
+                    <div class="service">
+                      <input type="checkbox" :id="'transport-' + room.id" v-model="room.transport" @change="transportChecked">
+                      <label :for="'transport-' + room.id">Транспорт</label>
+                    </div>
+                    <div class="service">
+                      <input type="checkbox" :id="'wake-up-' + room.id" v-model="room.wakeUp" @change="wakeUpChecked">
+                      <label :for="'wake-up-' + room.id">Пробуждение</label>
+                    </div>
                   </div>
                 </div>
                 <div class="modal-header">
@@ -193,26 +193,26 @@ export default {
 
       this.showModal = false;
     },
-    ProductAdd(room) {
-      fetch('http://frontend/src/api/ProductDataAdd.php', {
-        method: 'POST',
-        body: JSON.stringify({
-          item_id: room['id'],
-          token: localStorage.getItem('token')
-        })
-      })
-          .then(response => response.json())
-          .then(data => {
-            this.Minibar = parseInt(data[0]['Minibar'])
-            this.TV = parseInt(data[0]['TV'])
-            this.WiFi = parseInt(data[0]['WiFi'])
-            this.Conditioner = parseInt(data[0]['Conditioner'])
-            // let arr = [this.TV,this.Minibar,this.WiFi,this.Conditioner]
-            let item_booking = room['id'];
-
-          })
-          .catch(error => console.error(error));
-    }
+    // ProductAdd(room) {
+    //   fetch('http://frontend/src/api/ProductDataAdd.php', {
+    //     method: 'POST',
+    //     body: JSON.stringify({
+    //       item_id: room['id'],
+    //       token: localStorage.getItem('token')
+    //     })
+    //   })
+    //       .then(response => response.json())
+    //       .then(data => {
+    //         this.Minibar = parseInt(data[0]['Minibar'])
+    //         this.TV = parseInt(data[0]['TV'])
+    //         this.WiFi = parseInt(data[0]['WiFi'])
+    //         this.Conditioner = parseInt(data[0]['Conditioner'])
+    //         // let arr = [this.TV,this.Minibar,this.WiFi,this.Conditioner]
+    //         let item_booking = room['id'];
+    //
+    //       })
+    //       .catch(error => console.error(error));
+    // }
   },
   mounted() {
     fetch('http://frontend/src/api/ProductData.php', {
@@ -222,6 +222,7 @@ export default {
         .then(response => response.json())
         .then(data => {
           this.rooms = data.message;
+          console.log(this.rooms)
         })
         .catch(error => console.error(error));
 
@@ -230,10 +231,14 @@ export default {
 </script>
 
 <style scoped>
+.modal-add-info {
+  margin-bottom: 70px;
+}
 .card_container {
   display: flex;
   flex-wrap: wrap;
   gap: 100px;
+  padding-bottom: 150px;
 }
 .modal {
   position: fixed;
