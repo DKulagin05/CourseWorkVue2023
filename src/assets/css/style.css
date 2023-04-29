@@ -71,7 +71,11 @@ textarea,
 select {
     font: inherit;
 }
-
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+.wrapper {
+    font-family: 'Jost', sans-serif;
+    font-family: 'Montserrat', sans-serif;
+}
 /* Удаляем все анимации и переходы для людей, которые предпочитай их не использовать */
 @media (prefers-reduced-motion: reduce) {
     * {
@@ -83,7 +87,7 @@ select {
 }
 :root {
     --light-gray: #3E424B;
-    --light-brown: #916d48;
+    --light-brown: rgba(147, 106, 48, 0.93);
     --white: #FFFFFF;
     --cyan: #B0C4DE;
     --brown: #BB8C5F;
@@ -106,8 +110,8 @@ select {
 }
 .header {
     /*background: rgba(163, 84, 41, 1);*/
-    background: var(--light-brown);
-    height: 80px;
+    background: rgba(147, 106, 48, 0.93);
+    height: 70px;
     display: flex;
     align-items: center;
 }
@@ -496,6 +500,7 @@ footer {
     display: flex;
     flex-wrap: wrap;
     gap: 100px;
+    padding-bottom: 150px;
 }
 .modal {
     position: fixed;
@@ -511,12 +516,7 @@ footer {
 input[type='date'] {
     /*width: 200px;*/
 }
-.modal-content {
-    background-color: #fff;
-    width: 400px;
-    padding: 20px;
-    border-radius: 5px;
-}
+
 
 .modal-header h3 {
     margin: 0;
@@ -565,9 +565,6 @@ input[type='date'] {
     font-size: 1.5rem;
 }
 
-.room-card p {
-    margin: 10px 0;
-}
 
 .additional-services {
     margin-top: 0;

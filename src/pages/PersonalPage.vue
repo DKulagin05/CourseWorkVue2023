@@ -66,15 +66,24 @@
         <div class="products-list">
           <div class="card_container">
             <div class="room-card" v-for="room in personalBooking" :key="room.id">
+
               <div class="room-img">
                 <img :src="'http://frontend/src/assets/img/products/' + room[1].img" :alt="room[1].title">
               </div>
+
               <h2>{{ room[1].title }}</h2>
+              <div class="booking_date">
+                <p>{{calculateDays(room[0].arrival_date,room[0].departure_date)}}Дата заселения: {{room[0].arrival_date}}<br>Время проживания: {{daysCount}} ночи</p>
+                <p style="font-size: 14px">Заселение - 13:00 | Выселение - 10:00</p>
+              </div>
+              <div class="split"></div>
               <div class="room-specifications">
                 <p>Площадь: {{ room[1].square }} м²</p>
                 <p>Человек: {{ room[1].people_count }}</p>
               </div>
-              <p>Цена: {{ room[1].price }} р/ночь</p>
+
+              <p style="margin-bottom: 10px; font-size: 18px">Стоимость: {{ room[0].price }} р</p>
+
               <div class="additional-services">
                 <h2>Дополнительные услуги</h2>
                 <div class="service">
@@ -94,6 +103,7 @@
                   <label :for="'wake-up-' + room[0].id">Пробуждение</label>
                 </div>
               </div>
+
               <div class="cancel_btn">
                 <button class="book-button" @click="cancelBooking(room[1].id)">Отменить</button>
               </div>
@@ -122,9 +132,19 @@ export default {
       selectedImg: null,
       token: localStorage.getItem('token'),
       personalBooking: [],
+      daysCount: 0
     };
   },
   methods: {
+    calculateDays(checkInDate,checkOutDate) {
+      if (checkInDate && checkOutDate) {
+        const date1Obj = new Date(checkInDate)
+        const date2Obj = new Date(checkOutDate)
+        const timeDiff = Math.abs(date2Obj.getTime() - date1Obj.getTime())
+        const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24))
+        this.daysCount = diffDays
+      }
+    },
     onImgSelected(event) {
       this.selectedImg = event.target.files[0]
     },
@@ -217,6 +237,33 @@ export default {
 </script>
 
 <style scoped>
+.save_changes {
+  background-color: #c8a165;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+.split {
+  height: 1px;
+  margin-top: 5px;
+  background-color: black;
+}
+.room-specifications {
+  display: flex;
+  font-size: 18px;
+  gap: 30px;
+  margin: 10px 0 5px 0 ;
+}
+.additional-services h2 {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+.service label {
+  font-size: 14px;
+}
 .personal_info_booking {
   padding-bottom: 100px;
 }
@@ -227,6 +274,11 @@ export default {
   height: 200px;
   width: 100%;
   border-radius: 5px 5px 0 0 ;
+}
+.room-card h2 {
+  margin-top: 5px;
+  line-height: 30px;
+  font-weight: 500;
 }
 .personal_info_body {}
 .products-list {
@@ -245,6 +297,11 @@ input[type="text"] {
   margin-top: 20px;
   padding: 10px;
   cursor: pointer;
-  max-width: 199px;
+  max-width: 230px;
+}
+.booking_date p {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 20px;
 }
 </style>

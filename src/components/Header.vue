@@ -14,7 +14,7 @@
         </div>
         <div class="header_profile">
           <img src="@/assets/img/Profile.png" alt="#" @click="toggleWindow" />
-          <div class="window_reg_log" :class="['active', !isWindowActive ? 'hide' : '']">
+          <div class="window_reg_log" :class="['active', !isWindowActive ? 'hide' : '']" >
             <router-link to="/promo" class="header_links_mobile">Спецпредложения</router-link>
             <router-link to="/product" class="header_links_mobile">Бронирование</router-link>
             <router-link to="/services" class="header_links_mobile">Услуги</router-link>

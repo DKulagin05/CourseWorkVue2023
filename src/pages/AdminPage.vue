@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper" style="display:flex; gap: 150px; justify-content: space-around;">
+  <div class="wrapper" style="display:flex; gap: 150px; justify-content: space-around; padding-top: 50px;">
     <div class="universal_block">
       <h1>Создание номера</h1>
       <div class="create_room">

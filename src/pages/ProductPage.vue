@@ -1,51 +1,56 @@
 <template>
   <div class="wrapper">
-<!--    <section class="filters">-->
-<!--      <div class="wrapper">-->
-<!--        <div class="filters-title">-->
-<!--          <div class="filters-title-text">Каталог</div>-->
-<!--          <div class="filters-title-filters"></div>-->
-<!--        </div>-->
-<!--        <form class="filters-more-fliters" @submit.prevent="submitFilters">-->
-<!--          <div class="filters-more-fliters-price">-->
-<!--            <p>Цена</p>-->
-<!--            <div class="filters-more-fliters-price-inputs">-->
-<!--              <input class="input" id="search_price_start" type="text" placeholder="От" v-model="priceFrom" />-->
-<!--              <div class="line_filters"></div>-->
-<!--              <input class="input" id="search_price_end" type="text" placeholder="До" v-model="priceTo" />-->
-<!--            </div>-->
-<!--          </div>-->
-<!--          <div class="filters-more-fliters-sort">-->
-<!--            <p>Сортировка</p>-->
-<!--            <select name="filters-more-fliters-sort" v-model="sortType">-->
-<!--              <option value="0">Дешёвые</option>-->
-<!--              <option value="1">Дорогие</option>-->
-<!--            </select>-->
-<!--          </div>-->
-<!--          <div class="filters-more-fliters-sort">-->
-<!--            <input type="submit" class="sort_btn" id="sort_all_btn" value="Отсортировать" />-->
-<!--          </div>-->
-<!--        </form>-->
-<!--      </div>-->
-<!--    </section>-->
+    <section class="filters">
+      <div class="wrapper">
+        <div class="filters-title">
+          <div class="filters-title-text">Каталог</div>
+          <div class="filters-title-filters"></div>
+        </div>
+        <form class="filters-more-fliters" @submit.prevent="submitFilters">
+          <div class="filters-more-fliters-price">
+            <p>Цена</p>
+            <div class="filters-more-fliters-price-inputs">
+              <input class="input" id="search_price_start" type="text" placeholder="От" v-model="priceFrom" />
+              <div class="line_filters"></div>
+              <input class="input" id="search_price_end" type="text" placeholder="До" v-model="priceTo" />
+            </div>
+          </div>
+          <div class="filters-more-fliters-sort">
+            <p>Сортировка</p>
+            <select name="filters-more-fliters-sort" v-model="sortType">
+              <option value="0">Дешёвые</option>
+              <option value="1">Дорогие</option>
+            </select>
+          </div>
+          <div class="filters-more-fliters-sort">
+            <input type="submit" class="sort_btn" id="sort_all_btn" value="Отсортировать" @click="filter"/>
+          </div>
+        </form>
+      </div>
+    </section>
     <div class="card_container">
-      <div style="position: relative" class="room-card" v-for="room in rooms" :key="room.id">
+      <div style="position: relative" class="room-card" v-for="room in filteredRooms" :key="room.id">
         <div class="room-img">
           <img :src="'http://frontend/src/assets/img/products/' + room.img" :alt="room.title">
         </div>
-        <h2>{{ room.title }}</h2>
+        <h2 style="font-weight: 400; margin: 10px 0 5px 0; line-height: 30px; min-height: 60px">{{ room.title }}</h2>
         <div class="room-specifications">
           <p>Площадь: {{ room.square }} м²</p>
           <p>Человек: {{ room.people_count }}</p>
         </div>
         <p>Цена: {{ room.price }} р/ночь</p>
         <div class="modal-add-info">
-          <ul>
-            <h3>Этот номер включает в себя:</h3>
-            <li v-if="parseInt(room.Minibar)">Минибар</li>
-            <li v-if="parseInt(room.TV)">TV</li>
-            <li v-if="parseInt(room.WiFi)">WiFi</li>
-            <li v-if="parseInt(room.Conditioner)">Кондиционер</li>
+          <h3>Этот номер включает в себя:</h3>
+          <ul style="margin-top: 5px; display:flex; gap: 30px">
+            <div>
+              <li v-if="parseInt(room.Minibar)">Минибар</li>
+              <li v-if="parseInt(room.TV)">TV</li>
+            </div>
+           <div>
+             <li v-if="parseInt(room.WiFi)">WiFi</li>
+             <li v-if="parseInt(room.Conditioner)">Кондиционер</li>
+           </div>
+
           </ul>
         </div>
 
@@ -54,46 +59,72 @@
             <button style="position: absolute; bottom: 20px; right: 20px; margin-top: 50px;" class="book-button" @click="showModal = true; selectRoom(room)">Подробнее</button>
             <div v-if="showModal" class="modal">
               <div class="modal-content">
-                <div class="modal-info">
+                <div class="modal_rent">
                   <div class="modal-description">
+                    <img :src="'http://frontend/src/assets/img/products/' + this.selectedRoom.img" :alt="this.selectedRoom.title">
+                    <h2>{{ this.selectedRoom.title }}</h2>
                     <h3>{{ this.selectedRoom.description }}</h3>
-                  </div>
-                  <div class="additional-services">
-                    <h2>Дополнительные услуги</h2>
-                    <div class="service">
-                      <input type="checkbox" :id="'meal-' + room.id" v-model="room.meal" @change="mealChecked">
-                      <label :for="'meal-' + room.id">Питание</label>
+                    <div class="modal-add-info">
+                      <h3>Этот номер включает в себя:</h3>
+                      <ul>
+                        <li v-if="parseInt(this.selectedRoom.Minibar)">Минибар</li>
+                        <li v-if="parseInt(this.selectedRoom.TV)">TV</li>
+                        <li v-if="parseInt(this.selectedRoom.WiFi)">WiFi</li>
+                        <li v-if="parseInt(this.selectedRoom.Conditioner)">Кондиционер</li>
+                      </ul>
+                      <div class="test">
+                        <div class="modal-room-specifications">
+                          <p>Площадь: {{ room.square }} м²</p>
+                          <p>Человек: {{ room.people_count }}</p>
+                        </div>
+                        <p style="font-weight: bold; text-align: center;  font-size: 20px;">Цена: {{ totalCount }} р</p>
+                      </div>
                     </div>
-                    <div class="service">
-                      <input type="checkbox" :id="'special-zones-' + room.id" v-model="room.specialZones" @change="specialZonesChecked">
-                      <label :for="'special-zones-' + room.id">Посещение спец. зон</label>
-                    </div>
-                    <div class="service">
-                      <input type="checkbox" :id="'transport-' + room.id" v-model="room.transport" @change="transportChecked">
-                      <label :for="'transport-' + room.id">Транспорт</label>
-                    </div>
-                    <div class="service">
-                      <input type="checkbox" :id="'wake-up-' + room.id" v-model="room.wakeUp" @change="wakeUpChecked">
-                      <label :for="'wake-up-' + room.id">Пробуждение</label>
-                    </div>
+
                   </div>
                 </div>
-                <div class="modal-header">
-                  <h3>Выберите даты</h3>
-                </div>
-                <div class="modal-body">
-                  <div class="input_label_box">
-                    <label for="InDate">Дата въезда:</label>
-                    <input id="InDate" type="date" v-model="checkInDate" required />
+
+                <div class="modal-room-additional-info">
+                  <div class="modal-info">
+                    <div class="modal-additional-services">
+                      <h2>Дополнительные услуги</h2>
+                      <div class="modal-service">
+                        <input type="checkbox" :id="'meal-' + room.id" v-model="room.meal" @change="mealChecked">
+                        <label :for="'meal-' + room.id">Питание</label>
+                      </div>
+                      <div class="modal-service">
+                        <input type="checkbox" :id="'special-zones-' + room.id" v-model="room.specialZones" @change="specialZonesChecked">
+                        <label :for="'special-zones-' + room.id">Посещение спец. зон</label>
+                      </div>
+                      <div class="modal-service">
+                        <input type="checkbox" :id="'transport-' + room.id" v-model="room.transport" @change="transportChecked">
+                        <label :for="'transport-' + room.id">Транспорт</label>
+                      </div>
+                      <div class="modal-service">
+                        <input type="checkbox" :id="'wake-up-' + room.id" v-model="room.wakeUp" @change="wakeUpChecked">
+                        <label :for="'wake-up-' + room.id">Пробуждение</label>
+                      </div>
+                    </div>
                   </div>
-                  <div class="input_label_box">
-                    <label for="OutDate">Дата выезда:</label>
-                    <input id="OutDate" type="date" v-model="checkOutDate" required />
+                  <div class="modal-header">
+                    <h3>Выберите даты</h3>
                   </div>
-                </div>
-                <div class="modal-footer">
-                  <button @click="bookRoom(selectedRoom.id)">Забронировать</button>
-                  <button @click="showModal = false">Отмена</button>
+                  <div class="modal-body">
+                    <div class="input_label_box">
+                      <label for="InDate">Дата въезда:</label>
+                      <input id="InDate" type="date" v-model.lazy="checkInDate" @change="checkDate" required />
+                      <span v-if="dateError" style="color: red;">Дата не может быть меньше текущей</span>
+                    </div>
+                    <div class="input_label_box">
+                      <label for="OutDate">Дата выезда:</label>
+                      <input id="OutDate" type="date" v-model="checkOutDate" @change="calculateDays;checkDate" required />
+                      <span v-if="dateError" style="color: red;">Дата не может быть меньше текущей</span>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button @click="bookRoom(selectedRoom.id)">Забронировать</button>
+                    <button @click="showModal = false">Отмена</button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -110,7 +141,7 @@ export default {
     roomName: String,
     area: Number,
     capacity: Number,
-    price: Number
+    // price: Number
   },
   data() {
     return {
@@ -118,10 +149,10 @@ export default {
       specialZones: false,
       transport: false,
       wakeUp: false,
-      title: "Комната с двуспальной кроватью",
-      square: 5,
-      people_count: 2,
-      price: 1500,
+      title: "",
+      square: 0,
+      people_count: 0,
+      price: 0,
       selectedRoom: null,
       showModal: false,
       checkInDate: null,
@@ -131,14 +162,70 @@ export default {
       TV: false,
       WiFi: false,
       Conditioner: false,
+      dateErrorIn: false,
+      dateErrorOut: false,
+      daysCount: 1,
+      totalPrice: 0,
+      sortType: 0,
+      priceTo: 10000,
+      priceFrom: 0,
+      filteredRooms: []
     }
   },
-  filters: {
-    toNumber(value) {
-      return value ? 1 : 0
+  computed: {
+    totalCount(){
+      let add = 0
+      if(this.meal) add += 1500
+      if(this.specialZones) add += 2500
+      if(this.transport) add += 1000
+      if(this.wakeUp) add += 500
+      this.totalPrice = this.selectedRoom.price * this.daysCount + add
+      return this.selectedRoom.price * this.daysCount + add
+
     }
+  },
+  watch: {
+
   },
   methods: {
+    filter() {
+      const priceFrom = this.priceFrom;
+      const priceTo = parseFloat(this.priceTo);
+      const sortBy = this.sortType;
+      this.filteredRooms = this.rooms
+      if (!isNaN(priceFrom) && !isNaN(priceTo)) {
+        this.filteredRooms = this.rooms.filter(product => product.price >= priceFrom && product.price <= priceTo);
+      }
+      if (sortBy == 1) {
+        this.filteredRooms.sort((a, b) => b.price - a.price);
+      } else if (sortBy == 0) {
+        this.filteredRooms.sort((a, b) => a.price - b.price);
+      }
+    },
+    calculateDays() {
+      if (this.checkInDate && this.checkOutDate) {
+        const date1Obj = new Date(this.checkInDate)
+        const date2Obj = new Date(this.checkOutDate)
+        const timeDiff = Math.abs(date2Obj.getTime() - date1Obj.getTime())
+        const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24))
+        this.daysCount = diffDays
+      }
+    },
+    checkDate() {
+      const currentDate = new Date()
+      const checkInDate = new Date(this.checkInDate)
+      if (checkInDate <= currentDate) {
+        this.dateErrorIn = true
+      } else {
+        this.dateErrorIn = false
+      }
+      const checkOutDate = new Date(this.checkOutDate)
+      if (checkOutDate <= currentDate) {
+        this.dateErrorOut = true
+      } else {
+        this.dateErrorOut = false
+      }
+    },
     mealChecked() {
       this.meal = !this.meal
     },
@@ -156,7 +243,6 @@ export default {
 
     },
     bookRoom(id) {
-      console.log('Book room with id:', this.selectedRoom.id, 'Check-in date:', this.checkInDate, 'Check-out date:', this.checkOutDate);
       let item_booking = this.selectedRoom.id;
       const token = localStorage.getItem('token');
       let array_services = [
@@ -167,6 +253,7 @@ export default {
       ]
       let InDate = this.checkInDate
       let OutDate = this.checkOutDate
+      let totalPrice = this.totalPrice
       fetch('http://frontend/src/api/booking.php', {
         headers: {
           "Accept": "application/json",
@@ -178,7 +265,8 @@ export default {
           token,
           array_services,
           InDate,
-          OutDate
+          OutDate,
+          totalPrice
         })
       })
           .then(response => response.json())
@@ -193,28 +281,9 @@ export default {
 
       this.showModal = false;
     },
-    // ProductAdd(room) {
-    //   fetch('http://frontend/src/api/ProductDataAdd.php', {
-    //     method: 'POST',
-    //     body: JSON.stringify({
-    //       item_id: room['id'],
-    //       token: localStorage.getItem('token')
-    //     })
-    //   })
-    //       .then(response => response.json())
-    //       .then(data => {
-    //         this.Minibar = parseInt(data[0]['Minibar'])
-    //         this.TV = parseInt(data[0]['TV'])
-    //         this.WiFi = parseInt(data[0]['WiFi'])
-    //         this.Conditioner = parseInt(data[0]['Conditioner'])
-    //         // let arr = [this.TV,this.Minibar,this.WiFi,this.Conditioner]
-    //         let item_booking = room['id'];
-    //
-    //       })
-    //       .catch(error => console.error(error));
-    // }
   },
   mounted() {
+
     fetch('http://frontend/src/api/ProductData.php', {
       method: 'POST',
       body: JSON.stringify({})
@@ -222,7 +291,8 @@ export default {
         .then(response => response.json())
         .then(data => {
           this.rooms = data.message;
-          console.log(this.rooms)
+          this.filteredRooms = this.rooms
+
         })
         .catch(error => console.error(error));
 
@@ -231,57 +301,151 @@ export default {
 </script>
 
 <style scoped>
-.modal-add-info {
-  margin-bottom: 70px;
-}
-.card_container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 100px;
-  padding-bottom: 150px;
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+.wrapper {
+  font-family: 'Jost', sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 .modal {
+  background-color: rgba(123,123,123,0.15);
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 9999;
 }
-input[type='date'] {
-  /*width: 200px;*/
-}
+
 .modal-content {
-  background-color: #fff;
-  width: 400px;
-  padding: 20px;
+  background-color: #f2e8d8;
+  width: 50%;
+  padding: 50px;
   border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  /*align-items: center;*/
+  justify-content: space-between;
+}
+
+.modal_rent {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.modal-description {
+  display: flex;
+  flex-direction: column;
+  /*align-items: center;*/
+  justify-content: center;
+  width: 80%;
+  padding-right: 10px;
+}
+
+.modal-description img {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.modal-description h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.modal-description h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.modal-add-info {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  /*align-items: center;*/
+  /*justify-content: space-between;*/
+}
+
+.modal-room-specifications {
+  margin-top: 20px;
+  text-align: center;
+}
+.modal-room-specifications p {
+  font-size: 18px;
+}
+
+
+.modal-additional-services h2 {
+  font-size: 5px;
+  margin-bottom: 10px;
+}
+
+.modal-service {
+  margin-bottom: 10px;
+}
+
+.modal-service label {
+  font-size: 18px;
 }
 
 .modal-header h3 {
-  margin: 0;
-  padding: 20px;
-  font-weight: bold;
-  font-size: 32px;
+  font-size: 24px;
 }
+
 .modal-body {
   display: flex;
-  align-items: center;
-  flex-direction: column;
-  gap: 30px;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
-.modal-body input {
-  display: block;
+
+.input_label_box {
+  display: flex;
+  flex-direction: column;
   margin-bottom: 10px;
 }
-.modal-body label {
-  font-size: 20px;
+
+.input_label_box label {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.modal-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-footer button {
+  padding: 10px 20px;
+  font-size: 18px;
+  border-radius: 5px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+.modal-footer button:first-child {
+  background-color: #A0522D;
+}
+
+.modal-footer button:last-child {
+  background-color: #696969;
 }
 .modal-footer button {
   margin-right: 10px;
+  background-color: #a88452;
+  color: white;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 1.2rem;
+  cursor: pointer;
 }
 
 .room-specifications {
@@ -297,6 +461,7 @@ input[type='date'] {
 }
 .room-card {
   width: 350px;
+  min-height: 520px;
   background-color: #f2e8d8;
   padding: 20px;
   border-radius: 10px;
@@ -315,9 +480,7 @@ input[type='date'] {
   width: 100%;
   border-radius: 5px 5px 0 0 ;
 }
-.room-card p {
-  margin: 10px 0;
-}
+
 
 .additional-services {
   margin-top: 0;
