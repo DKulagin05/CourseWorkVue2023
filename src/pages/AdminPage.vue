@@ -304,6 +304,9 @@ export default {
             .catch((error) => console.error(error));
       }
     },
+  },
+  mounted() {
+    fetch('http://frontend/src/api/removeBooking.php', {})
   }
 }
 </script>

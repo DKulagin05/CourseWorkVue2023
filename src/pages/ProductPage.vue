@@ -64,14 +64,16 @@
                     <img :src="'http://frontend/src/assets/img/products/' + this.selectedRoom.img" :alt="this.selectedRoom.title">
                     <h2>{{ this.selectedRoom.title }}</h2>
                     <h3>{{ this.selectedRoom.description }}</h3>
-                    <div class="modal-add-info">
-                      <h3>Этот номер включает в себя:</h3>
-                      <ul>
-                        <li v-if="parseInt(this.selectedRoom.Minibar)">Минибар</li>
-                        <li v-if="parseInt(this.selectedRoom.TV)">TV</li>
-                        <li v-if="parseInt(this.selectedRoom.WiFi)">WiFi</li>
-                        <li v-if="parseInt(this.selectedRoom.Conditioner)">Кондиционер</li>
-                      </ul>
+                    <div class="modal-add-info-var">
+                      <div class="add-info-var">
+                        <h3>Этот номер включает в себя:</h3>
+                        <ul>
+                          <li v-if="parseInt(this.selectedRoom.Minibar)">Минибар</li>
+                          <li v-if="parseInt(this.selectedRoom.TV)">TV</li>
+                          <li v-if="parseInt(this.selectedRoom.WiFi)">WiFi</li>
+                          <li v-if="parseInt(this.selectedRoom.Conditioner)">Кондиционер</li>
+                        </ul>
+                      </div>
                       <div class="test">
                         <div class="modal-room-specifications">
                           <p>Площадь: {{ room.square }} м²</p>
@@ -113,16 +115,17 @@
                     <div class="input_label_box">
                       <label for="InDate">Дата въезда:</label>
                       <input id="InDate" type="date" v-model.lazy="checkInDate" @change="checkDate" required />
-                      <span v-if="dateError" style="color: red;">Дата не может быть меньше текущей</span>
+                      <span v-if="dateErrorIn" style="color: red;">Дата не может быть меньше текущей</span>
                     </div>
                     <div class="input_label_box">
                       <label for="OutDate">Дата выезда:</label>
-                      <input id="OutDate" type="date" v-model="checkOutDate" @change="calculateDays;checkDate" required />
-                      <span v-if="dateError" style="color: red;">Дата не может быть меньше текущей</span>
+                      <input id="OutDate" type="date" v-model="checkOutDate" @change="calculateDays(); checkDate()" required />
+                      <span v-if="dateErrorOut" style="color: red;">Дата выселения не может быть меньше даты заселения</span>
                     </div>
                   </div>
                   <div class="modal-footer">
-                    <button @click="bookRoom(selectedRoom.id)">Забронировать</button>
+                    <button @click="bookRoom(selectedRoom.id)" :disabled="dateErrorOut || dateErrorIn || checkInDate===null || checkOutDate===null"
+                            :class="{ 'disabled-button': dateErrorOut || dateErrorIn || checkInDate===null || checkOutDate===null }">Забронировать</button>
                     <button @click="showModal = false">Отмена</button>
                   </div>
                 </div>
@@ -214,13 +217,13 @@ export default {
     checkDate() {
       const currentDate = new Date()
       const checkInDate = new Date(this.checkInDate)
-      if (checkInDate <= currentDate) {
+      if (checkInDate < currentDate) {
         this.dateErrorIn = true
       } else {
         this.dateErrorIn = false
       }
       const checkOutDate = new Date(this.checkOutDate)
-      if (checkOutDate <= currentDate) {
+      if (checkOutDate <= checkInDate) {
         this.dateErrorOut = true
       } else {
         this.dateErrorOut = false
@@ -306,6 +309,9 @@ export default {
   font-family: 'Jost', sans-serif;
   font-family: 'Montserrat', sans-serif;
 }
+.disabled-button {
+  opacity: 0.5;
+}
 .modal {
   background-color: rgba(123,123,123,0.15);
   position: fixed;
@@ -370,7 +376,12 @@ export default {
   /*align-items: center;*/
   /*justify-content: space-between;*/
 }
-
+.modal-add-info-var {
+  display: flex;
+  /*flex-direction: column;*/
+  margin-top: 10px;
+  gap: 50px;
+}
 .modal-room-specifications {
   margin-top: 20px;
   text-align: center;
