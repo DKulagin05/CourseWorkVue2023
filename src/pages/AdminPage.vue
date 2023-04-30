@@ -24,8 +24,10 @@
           <label for="new_Conditioner">Кондиционер:</label>
           <input type="checkbox" id="new_Conditioner" @change="new_ConditionerChecked">
         </div>
-        <label for="create_img">Изображение</label>
-        <input @change="onFileSelected" id="create_img" type="file" class="create_img">
+        <label>Изображения:</label>
+        <input @change="onFileSelected_1" id="create_img_1" type="file" class="create_img">
+        <input @change="onFileSelected_2" id="create_img_2" type="file" class="create_img">
+        <input @change="onFileSelected_3" id="create_img_3" type="file" class="create_img">
         <button @click="createProduct" class="create_room_btn">Сохранить изменения</button>
       </div>
     </div>
@@ -122,7 +124,11 @@
             <td><input id="edit_WiFi" type="text" v-model="room_edit.WiFi"></td>
             <td><input id="edit_Conditioner" type="text" v-model="room_edit.Conditioner"></td>
             <td><input id="edit_Minibar" type="text" v-model="room_edit.Minibar"></td>
-            <td><input type="file" @change="EditImgSelected" class="edit_img" name="edit_profile_img" id="edit_profile_img"></td>
+            <div style="display:flex; flex-direction: column">
+              <td><input type="file" @change="EditImgSelected1" class="edit_img" name="edit_profile_img_1" id="edit_profile_img_1"></td>
+              <td><input type="file" @change="EditImgSelected2" class="edit_img" name="edit_profile_img_2" id="edit_profile_img_2"></td>
+              <td><input type="file" @change="EditImgSelected3" class="edit_img" name="edit_profile_img_3" id="edit_profile_img_3"></td>
+            </div>
             <td><button class="redact_product" @click="editProduct">Сохранить изменения</button></td>
           </tr>
           </tbody>
@@ -143,7 +149,9 @@ export default {
       square: '',
       price: '',
       create_img: null,
-      selectedFile: null,
+      selectedFile_1: null,
+      selectedFile_2: null,
+      selectedFile_3: null,
       searchInput: '',
       searchInputEdit: '',
       room: {},
@@ -151,7 +159,9 @@ export default {
       existingResultDelete: false,
       existingResultEdit: false,
       new_Conditioner: false,
-      selectedEditImg: null,
+      selectedEditImg_1: null,
+      selectedEditImg_2: null,
+      selectedEditImg_3: null,
       new_WiFi: false,
       new_TV: false,
       new_Minibar: false,
@@ -159,8 +169,14 @@ export default {
     }
   },
   methods: {
-    EditImgSelected(event) {
-      this.selectedEditImg = event.target.files[0]
+    EditImgSelected1(event) {
+      this.selectedEditImg_1 = event.target.files[0]
+    },
+    EditImgSelected2(event) {
+      this.selectedEditImg_2 = event.target.files[0]
+    },
+    EditImgSelected3(event) {
+      this.selectedEditImg_3 = event.target.files[0]
     },
     new_MinibarChecked() {
       this.new_Minibar = !this.new_Minibar
@@ -174,13 +190,21 @@ export default {
     new_ConditionerChecked() {
       this.new_Conditioner = !this.new_Conditioner
     },
-    onFileSelected(event) {
-      this.selectedFile = event.target.files[0]
+    onFileSelected_1(event) {
+      this.selectedFile_1 = event.target.files[0]
+    },
+    onFileSelected_2(event) {
+      this.selectedFile_2 = event.target.files[0]
+    },
+    onFileSelected_3(event) {
+      this.selectedFile_3 = event.target.files[0]
     },
     editProduct() {
       const formDataEdit = new FormData();
       formDataEdit.append('edit_id', this.room_edit.id)
-      formDataEdit.append('edit_product_img', this.selectedEditImg)
+      formDataEdit.append('edit_product_img_1', this.selectedEditImg_1)
+      formDataEdit.append('edit_product_img_2', this.selectedEditImg_2)
+      formDataEdit.append('edit_product_img_3', this.selectedEditImg_3)
       formDataEdit.append('edit_title', this.room_edit.title)
       formDataEdit.append('edit_description', this.room_edit.description)
       formDataEdit.append('edit_people_count', this.room_edit.people_count)
@@ -208,7 +232,9 @@ export default {
     },
     createProduct() {
       const createData = new FormData()
-      createData.append('create_img', this.selectedFile)
+      createData.append('create_img_1', this.selectedFile_1)
+      createData.append('create_img_2', this.selectedFile_2)
+      createData.append('create_img_3', this.selectedFile_3)
       createData.append('create_title', this.title)
       createData.append('create_description', this.description)
       createData.append('create_people_count', this.peopleCount)

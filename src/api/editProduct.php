@@ -23,20 +23,27 @@ if (empty($edit_title) || empty($edit_description)
     );
 } else {
 
-    $img =  "C:\\OSPanel\\domains\\frontend\\src\\assets\\img\\products\\" . $_FILES['edit_product_img']['name'];
-    move_uploaded_file($_FILES['edit_product_img']['tmp_name'], $img);
-    if ($_FILES['edit_product_img'] === null) {
+    $img1 =  "C:\\OSPanel\\domains\\frontend\\src\\assets\\img\\products\\" . $_FILES['edit_product_img_1']['name'];
+    move_uploaded_file($_FILES['edit_product_img_1']['tmp_name'], $img1);
+    $img2 =  "C:\\OSPanel\\domains\\frontend\\src\\assets\\img\\products\\" . $_FILES['edit_product_img_2']['name'];
+    move_uploaded_file($_FILES['edit_product_img_2']['tmp_name'], $img2);
+    $img3 =  "C:\\OSPanel\\domains\\frontend\\src\\assets\\img\\products\\" . $_FILES['edit_product_img_3']['name'];
+    move_uploaded_file($_FILES['edit_product_img_3']['tmp_name'], $img3);
+
+    if ($_FILES['edit_product_img_1'] === null) {
         $query = "UPDATE Rooms
               SET `title` = '$edit_title', `description` = '$edit_description', `people_count` = '$edit_people_count', 
                   `square` = '$edit_square', `price` = '$edit_price',  `TV` = '$edit_tv', `WiFi` = '$edit_wifi', `Conditioner` = '$edit_conditioner', 
                   `Minibar` = '$edit_minibar'
               WHERE id = '$id';";
     } else {
-        $img = $_FILES['edit_product_img']['name'];
+        $img = $_FILES['edit_product_img_1']['name'] ?? '';
+        $img2 = $_FILES['edit_product_img_2']['name'] ?? '';
+        $img3 = $_FILES['edit_product_img_3']['name'] ?? '';
         $query = "UPDATE Rooms
               SET `title` = '$edit_title', `description` = '$edit_description', `people_count` = '$edit_people_count', 
                   `square` = '$edit_square', `price` = '$edit_price',  `TV` = '$edit_tv', `WiFi` = '$edit_wifi', `Conditioner` = '$edit_conditioner', 
-                  `Minibar` = '$edit_minibar', `img` = '$img'
+                  `Minibar` = '$edit_minibar', `img_1` = '$img', `img_2` = '$img2', `img_3` = '$img3'
               WHERE id = '$id';";
     }
 

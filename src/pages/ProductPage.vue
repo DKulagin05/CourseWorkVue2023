@@ -6,7 +6,7 @@
           <div class="filters-title-text">Каталог</div>
           <div class="filters-title-filters"></div>
         </div>
-        <form class="filters-more-fliters" @submit.prevent="submitFilters">
+        <form class="filters-more-fliters">
           <div class="filters-more-fliters-price">
             <p>Цена</p>
             <div class="filters-more-fliters-price-inputs">
@@ -21,17 +21,24 @@
               <option value="0">Дешёвые</option>
               <option value="1">Дорогие</option>
             </select>
+            <p>Количество человек</p>
+            <select name="filters-more-fliters-sort" v-model="peopleCount">
+              <option value="0">Все</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="4">4</option>
+            </select>
           </div>
-          <div class="filters-more-fliters-sort">
-            <input type="submit" class="sort_btn" id="sort_all_btn" value="Отсортировать" @click="filter"/>
-          </div>
+<!--          <div class="filters-more-fliters-sort">-->
+<!--            <input type="submit" class="sort_btn" id="sort_all_btn" value="Отсортировать"/>-->
+<!--          </div>-->
         </form>
       </div>
     </section>
     <div class="card_container">
       <div style="position: relative" class="room-card" v-for="room in filteredRooms" :key="room.id">
         <div class="room-img">
-          <img :src="'http://frontend/src/assets/img/products/' + room.img" :alt="room.title">
+          <img :src="'http://frontend/src/assets/img/products/' + room.img_1" :alt="room.title">
         </div>
         <h2 style="font-weight: 400; margin: 10px 0 5px 0; line-height: 30px; min-height: 60px">{{ room.title }}</h2>
         <div class="room-specifications">
@@ -61,7 +68,11 @@
               <div class="modal-content">
                 <div class="modal_rent">
                   <div class="modal-description">
-                    <img :src="'http://frontend/src/assets/img/products/' + this.selectedRoom.img" :alt="this.selectedRoom.title">
+                    <div class="modal-description-img">
+                      <img v-if="this.selectedRoom.img_1 !== ''" :src="'http://frontend/src/assets/img/products/' + this.selectedRoom.img_1" :alt="this.selectedRoom.title">
+                      <img v-if="this.selectedRoom.img_2 !== ''" :src="'http://frontend/src/assets/img/products/' + this.selectedRoom.img_2" :alt="this.selectedRoom.title">
+                      <img v-if="this.selectedRoom.img_3 !== ''" :src="'http://frontend/src/assets/img/products/' + this.selectedRoom.img_3" :alt="this.selectedRoom.title">
+                    </div>
                     <h2>{{ this.selectedRoom.title }}</h2>
                     <h3>{{ this.selectedRoom.description }}</h3>
                     <div class="modal-add-info-var">
@@ -172,6 +183,7 @@ export default {
       sortType: 0,
       priceTo: 10000,
       priceFrom: 0,
+      peopleCount: 0,
       filteredRooms: []
     }
   },
@@ -188,22 +200,51 @@ export default {
     }
   },
   watch: {
-
+    priceFrom: {
+      handler() {
+        this.filter();
+      }
+    },
+    priceTo: {
+      handler() {
+        this.filter();
+      }
+    },
+    sortType: {
+      handler() {
+        this.filter();
+      }
+    },
+    peopleCount: {
+      handler() {
+        this.filter();
+      }
+    }
   },
   methods: {
     filter() {
       const priceFrom = this.priceFrom;
       const priceTo = parseFloat(this.priceTo);
       const sortBy = this.sortType;
-      this.filteredRooms = this.rooms
+      const peopleCount = parseInt(this.peopleCount);
+
+      let filteredRooms = this.rooms;
+
       if (!isNaN(priceFrom) && !isNaN(priceTo)) {
-        this.filteredRooms = this.rooms.filter(product => product.price >= priceFrom && product.price <= priceTo);
+        filteredRooms = filteredRooms.filter(room => room.price >= priceFrom && room.price <= priceTo);
       }
+
+      if (peopleCount > 0) {
+        filteredRooms = filteredRooms.filter(room => room.people_count === this.peopleCount);
+      }
+
       if (sortBy == 1) {
-        this.filteredRooms.sort((a, b) => b.price - a.price);
+        filteredRooms.sort((a, b) => b.price - a.price);
       } else if (sortBy == 0) {
-        this.filteredRooms.sort((a, b) => a.price - b.price);
+        filteredRooms.sort((a, b) => a.price - b.price);
       }
+
+      this.filteredRooms = filteredRooms;
     },
     calculateDays() {
       if (this.checkInDate && this.checkOutDate) {
@@ -328,7 +369,7 @@ export default {
 .modal-content {
   background-color: #f2e8d8;
   width: 50%;
-  padding: 50px;
+  padding: 30px;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
@@ -344,13 +385,20 @@ export default {
   width: 100%;
   margin-bottom: 20px;
 }
-
+.modal-description-img {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.modal-description-img img {
+  max-width: 40%;
+}
 .modal-description {
   display: flex;
   flex-direction: column;
   /*align-items: center;*/
   justify-content: center;
-  width: 80%;
+  width: 100%;
   padding-right: 10px;
 }
 
@@ -380,7 +428,8 @@ export default {
   display: flex;
   /*flex-direction: column;*/
   margin-top: 10px;
-  gap: 50px;
+  /*gap: 50px;*/
+  justify-content: space-around;
 }
 .modal-room-specifications {
   margin-top: 20px;

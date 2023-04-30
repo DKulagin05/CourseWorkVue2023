@@ -68,7 +68,7 @@
             <div class="room-card" v-for="room in personalBooking" :key="room.id">
 
               <div class="room-img">
-                <img :src="'http://frontend/src/assets/img/products/' + room[1].img" :alt="room[1].title">
+                <img :src="'http://frontend/src/assets/img/products/' + room[1].img_1" :alt="room[1].title">
               </div>
 
               <h2>{{ room[1].title }}</h2>
