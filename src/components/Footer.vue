@@ -3,10 +3,8 @@
     <div class="wrapper">
       <div class="footer_body">
         <div class="footer_input">
-          <form action="" id="mailingForm">
-            <input name="mailing" id="mailing" type="email" placeholder="Подписаться на рассылку">
-            <input type="submit" value="Подписаться">
-          </form>
+            <input name="mailing" v-model="mail"  id="mailing" type="email" placeholder="Подписаться на рассылку">
+            <button class="mailingBtn" @click="mailing">Подписаться</button>
         </div>
         <div class="footer_links">
           <router-link to="/contacts">Контакты</router-link>
@@ -17,7 +15,7 @@
           <img src="@/assets/img/paypal.png" alt="#">
         </div>
         <div class="footer_logo">
-          <a href="../mainPage.php"><img src="@/assets/img/footer_logo.png" alt="#"></a>
+          <router-link to="/"><img src="../assets/img/Logo.png" alt="#" /></router-link>
         </div>
       </div>
     </div>
@@ -26,8 +24,34 @@
 
 <script>
 export default {
-  name: 'Footer'
+  data() {
+    return {
+      mail: null,
+    }
+  },
+  methods: {
+    mailing() {
+      const email = this.mail
+
+      fetch('http://frontend/src/api/footer_mailing.php', {
+        method: 'POST',
+        body: JSON.stringify({
+          email
+        })
+      })
+          .then(response => response.json())
+          .then(data => {
+            if (data.success) {
+              alert(data.message);
+            } else {
+              alert(data.message);
+            }
+          })
+          .catch(error => console.error(error));
+    }
+  }
 }
+
 </script>
 
 <style scoped>
@@ -49,7 +73,7 @@ footer {
 
 
 
-form input[type="email"] {
+input[type="email"] {
   /*border-radius: 5px;*/
   border-bottom-left-radius: 5px;
   border-top-left-radius: 5px;
@@ -59,7 +83,7 @@ form input[type="email"] {
   width: 250px;
 }
 
-form input[type="submit"] {
+.mailingBtn {
   background-color: #c8a165;
   border: none;
   /*border-radius: 5px;*/

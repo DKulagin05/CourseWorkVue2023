@@ -89,7 +89,7 @@ select {
     --light-gray: #3E424B;
     --light-brown: rgba(147, 106, 48, 0.93);
     --white: #FFFFFF;
-    --cyan: #B0C4DE;
+    --cyan: #0d5c5b;
     --brown: #BB8C5F;
 }
 .true {
@@ -162,17 +162,13 @@ select {
     background-color: var(--light-brown);
     padding: 30px 50px;
     border-radius: 30px;
-    max-width: 400px;
-    max-height: 350px;
+    /*max-width: 700px;*/
     box-shadow: -4px 4px 4px 0px #00000059;
 }
 .head_booking_count {
     margin-bottom: 0px;
 }
-.head_booking_wnd_inputs {
-    max-width: 310px;
 
-}
 .input_value {
     display: flex;
     flex-direction: column;
@@ -239,17 +235,7 @@ select {
     outline: none;
     color: white;
 }
-.head_booking_wnd_inputs input[type="submit"] {
-    margin-top: 10px;
-    background: var(--cyan);
-    padding: 12px 85px;
-    color: white;
-    font-family: 'Montserrat';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 22px;
-    line-height: 27px;
-}
+
 .head_all_btn {
 
     position: absolute;

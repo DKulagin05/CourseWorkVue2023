@@ -5,8 +5,8 @@
         <div class="head_body">
           <div class="head_booking_wnd">
             <div class="head_booking_wnd_inputs">
-              <h1 style="color: white; line-height: 60px;">Бронируйте за день, на день!</h1>
-              <input type="submit" value="Подробнее" @click="showProductPage">
+              <h1 style="color: white; line-height: 50px; font-size: 26px;">Для наших дорогих гостей - специальные акции и скидки! Забронируйте номер уже сегодня и получите больше за меньшую цену!</h1>
+              <router-link to="/promo">Подробнее</router-link>
             </div>
           </div>
         </div>
@@ -90,7 +90,7 @@
       </div>
     </div>
     <div class="sec_map">
-      <div style="position:relative;overflow:hidden;"><a href="https://yandex.ru/maps/56/chelyabinsk/?utm_medium=mapframe&utm_source=maps" style="color:#eee;font-size:12px;position:absolute;top:0px;">Челябинск</a><a href="https://yandex.ru/maps/56/chelyabinsk/house/ulitsa_entuziastov_17/YkgYdQBnS0UEQFtvfX10cHxkYQ==/?indoorLevel=1&ll=61.378359%2C55.150621&utm_medium=mapframe&utm_source=maps&z=16.95" style="color:#eee;font-size:12px;position:absolute;top:14px;">Улица Энтузиастов, 17 — Яндекс Карты</a><iframe src="https://yandex.ru/map-widget/v1/?indoorLevel=1&ll=61.378359%2C55.150621&mode=whatshere&whatshere%5Bpoint%5D=61.377582%2C55.151057&whatshere%5Bzoom%5D=17&z=16.95" width="100%" height="500" frameborder="0" allowfullscreen="true" style="position:relative;"></iframe></div>
+      <div style="position:relative;overflow:hidden;"><a href="https://yandex.ru/maps/56/chelyabinsk/?utm_medium=mapframe&utm_source=maps" style="color:#eee;font-size:12px;position:absolute;top:0;">Челябинск</a><a href="https://yandex.ru/maps/56/chelyabinsk/house/ulitsa_entuziastov_17/YkgYdQBnS0UEQFtvfX10cHxkYQ==/?indoorLevel=1&ll=61.378359%2C55.150621&utm_medium=mapframe&utm_source=maps&z=16.95" style="color:#eee;font-size:12px;position:absolute;top:14px;">Улица Энтузиастов, 17 — Яндекс Карты</a><iframe src="https://yandex.ru/map-widget/v1/?indoorLevel=1&ll=61.378359%2C55.150621&mode=whatshere&whatshere%5Bpoint%5D=61.377582%2C55.151057&whatshere%5Bzoom%5D=17&z=16.95" width="100%" height="500" frameborder="0" allowfullscreen="true" style="position:relative;"></iframe></div>
     </div>
   </div>
 </template>
@@ -99,3 +99,34 @@
 
 
 </script>
+<style scoped>
+.head_booking_wnd {
+  position: absolute;
+  top: 150px;
+
+  /*margin: 150px 0 0 0;*/
+  background-color: var(--light-brown);
+  padding: 30px 50px;
+  border-radius: 30px;
+  max-width: 700px;
+  max-height: 500px;
+  box-shadow: -4px 4px 4px 0px #00000059;
+}
+.head_booking_wnd_inputs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.head_booking_wnd_inputs a {
+  text-decoration: none;
+  margin-top: 40px;
+  background: var(--cyan);
+  padding: 12px 85px;
+  color: white;
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 27px;
+}
+</style>

@@ -9,7 +9,7 @@
           </div>
           <div class="contacts_info_unit">
             <h1>Наш адрес</h1>
-            <h2>Ул. Есенина д. Каруселина</h2>
+            <h2>улица Энтузиастов, 17, Челябинск, 454080</h2>
           </div>
           <div class="contacts_info_unit">
             <h1>Наши соц. сети</h1>
@@ -77,13 +77,13 @@ export default {
 
 .contacts_info_unit h2 {
   font-size: 28px;
-  color: #1ba39e;
+  color: #0d5c5b;
   margin: 0;
 }
 
 .contacts_info_unit h4 {
   font-size: 18px;
-  color: #1ba39e;
+  color: #0d5c5b;
   margin: 0;
 }
 
@@ -98,7 +98,7 @@ export default {
 
 .how_to_get_to_us_header h1 {
   font-size: 28px;
-  color: #1ba39e;
+  color: #0d5c5b;
   margin: 0;
 }
 
