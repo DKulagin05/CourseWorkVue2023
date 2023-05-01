@@ -53,8 +53,8 @@ export default {
 
 .contacts_body {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: space-around;
+  /*align-items: center;*/
 }
 
 .contacts_info {

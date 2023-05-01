@@ -17,7 +17,7 @@
 export default {
   data() {
     return {
-      activeIndex: null,
+      activeIndex: 0,
       items: [],
     };
   },
@@ -59,7 +59,6 @@ export default {
 }
 .accordion-header span {
   transition: 0.4s ease;
-
 }
 .accordion-header {
   display: flex;
@@ -90,7 +89,7 @@ export default {
 
 .accordion-title {
   background-color: #f2ede4;
-  padding: 10px;
+  padding: 15px 20px 15px 20px;
   overflow: hidden;
   transition: max-height 0.3s ease-in-out;
 }
@@ -99,7 +98,6 @@ export default {
   font-size: 16px;
   color: #6d4c41;
   margin: 0;
-  padding: 10px 10px 0 10px;
 }
 
 .active + .accordion-title {

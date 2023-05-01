@@ -136,7 +136,54 @@
       </div>
     </div>
   </div>
+  <div class="universal_block" style="margin-top: 100px; margin-bottom: 100px;">
+    <h1>Создание спецпредложений</h1>
+    <div class="Promotion_create" style="margin-bottom: 150px;">
+      <label for="create_promotion_title">Название</label>
+      <textarea name="" id="create_promotion_title" cols="25" rows="3" v-model="createPromotionTitle"></textarea>
+      <label for="create_promotion_description">Описание</label>
+      <textarea name="" id="create_promotion_description" cols="25" rows="3" v-model="createPromotionDescription"></textarea>
+      <label for="create_promotion_img">Изображение</label>
+      <input type="file" @change="CreatePromotionImgSelected" class="create_promotion_img" name="create_promotion_img" id="create_promotion_img">
+      <button class="redact_product" @click="createPromotion">Сохранить изменения</button>
+    </div>
+  </div>
+  <div class="universal_block" style="padding-bottom: 100px;  padding-bottom: 100px;">
+    <h1>Удаление спецпредложения</h1>
+    <form @submit.prevent="submitFormDeletePromo">
+      <label for="search_delete_promo">Введите id или название спецпредложения</label>
+      <div class="" style="display:flex;">
+        <input  v-model="searchInputPromo" id="search_delete_promo" type="text" />
+        <input  type="submit" class="delete_room" />
+      </div>
+    </form>
+    <div class="search_remove_room_get">
+      <div class="search_room_delete_result" v-if="existingResultDeletePromo">
+        <table>
+          <thead>
+          <tr>
+            <th style="color: black">id</th>
+            <th style="color: black">title</th>
+            <th style="color: black">description</th>
+            <th style="color: black">img</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td id="delete_id_promo">{{promos.id}}</td>
+            <td id="delete_title_promo">{{promos.title}}</td>
+            <td>{{promos.description}}</td>
+            <td>{{promos.img}}</td>
+            <td><button class="redact_product" @click="deletePromotion">Удалить</button></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
 </div>
+
 </template>
 
 <script>
@@ -153,15 +200,21 @@ export default {
       selectedFile_2: null,
       selectedFile_3: null,
       searchInput: '',
+      searchInputPromo: '',
       searchInputEdit: '',
       room: {},
+      promos: {},
       room_edit: {},
       existingResultDelete: false,
+      existingResultDeletePromo: false,
       existingResultEdit: false,
       new_Conditioner: false,
       selectedEditImg_1: null,
       selectedEditImg_2: null,
       selectedEditImg_3: null,
+      createPromotionTitle: '',
+      createPromotionDescription: '',
+      CreatePromotionImg: null,
       new_WiFi: false,
       new_TV: false,
       new_Minibar: false,
@@ -177,6 +230,9 @@ export default {
     },
     EditImgSelected3(event) {
       this.selectedEditImg_3 = event.target.files[0]
+    },
+    CreatePromotionImgSelected(event) {
+      this.CreatePromotionImg = event.target.files[0]
     },
     new_MinibarChecked() {
       this.new_Minibar = !this.new_Minibar
@@ -198,6 +254,27 @@ export default {
     },
     onFileSelected_3(event) {
       this.selectedFile_3 = event.target.files[0]
+    },
+    createPromotion() {
+      const formDataCreateProm = new FormData();
+      formDataCreateProm.append('createPromotionTitle', this.createPromotionTitle)
+      formDataCreateProm.append('createPromotionDescription', this.createPromotionDescription)
+      formDataCreateProm.append('CreatePromotionImg', this.CreatePromotionImg)
+      console.log(formDataCreateProm)
+      fetch('http://frontend/src/api/createPromotions.php', {
+        method: 'POST',
+        body: formDataCreateProm,
+      })
+          .then(response => response.json())
+          .then(data => {
+            if (data.success) {
+              alert(data.message)
+              // this.existingResultEdit = false
+            } else {
+              alert(data.message)
+            }
+          })
+          .catch(error => console.log(error));
     },
     editProduct() {
       const formDataEdit = new FormData();
@@ -262,7 +339,6 @@ export default {
           })
           .catch((error) => console.error(error));
     },
-
     submitFormDelete() {
       fetch('http://frontend/src/api/searchEditProduct.php', {
         method: 'POST',
@@ -276,6 +352,25 @@ export default {
             if (data.success) {
               this.room = data.message[0];
               this.existingResultDelete = true;
+            } else {
+              alert(data.message);
+            }
+          })
+          .catch((error) => console.error(error));
+    },
+    submitFormDeletePromo() {
+      fetch('http://frontend/src/api/searchDeletePromo.php', {
+        method: 'POST',
+        body: JSON.stringify({
+          id: this.searchInputPromo,
+        }),
+        headers: { 'Content-Type': 'application/json' },
+      })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              this.promos = data.message[0];
+              this.existingResultDeletePromo = true;
             } else {
               alert(data.message);
             }
@@ -305,6 +400,30 @@ export default {
       this.editShow = !this.editShow
       console.log(typeof(this.room_edit.Minibar ? 1 : 0))
 
+    },
+    deletePromotion() {
+      const delete_id = document.getElementById('delete_id_promo').textContent;
+      const delete_title = document.getElementById('delete_title_promo').textContent;
+      if (confirm('Вы уверены что хотите удалить предложение с id ' + delete_id + '?')) {
+        fetch('http://frontend/src/api/deletePromo.php', {
+          method: 'POST',
+          body: JSON.stringify({
+            delete_id,
+            delete_title,
+          }),
+          headers: { 'Content-Type': 'application/json' },
+        })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.status) {
+                alert(data.message);
+                location.reload();
+              } else {
+                alert(data.message);
+              }
+            })
+            .catch((error) => console.error(error));
+      }
     },
     deleteProduct() {
       const delete_id = document.getElementById('delete_id').textContent;

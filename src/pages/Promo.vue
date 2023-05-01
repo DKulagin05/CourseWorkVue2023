@@ -5,7 +5,7 @@
         <div class="promo-codes">
           <div v-for="promo in promos" :key="promo.id" class="promo">
             <div class="promo-img">
-              <img :src="'http://frontend/src/assets/img/' + promo.img" :alt="promo.title" />
+              <img :src="'http://frontend/src/assets/img/promotions/' + promo.img" :alt="promo.title" />
             </div>
             <div class="promo-content">
               <h1>{{ promo.title }}</h1>
