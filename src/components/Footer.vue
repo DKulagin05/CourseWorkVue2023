@@ -11,8 +11,8 @@
           <router-link to="/services">Услуги</router-link>
         </div>
         <div class="footer_pay_var">
-          <img src="@/assets/img/qiwi.png" alt="#">
-          <img src="@/assets/img/paypal.png" alt="#">
+          <a href="https://qiwi.com/"><img src="@/assets/img/qiwi.png" alt="#"></a>
+          <a href="https://www.paypal.com/ru/home"><img src="@/assets/img/paypal.png" alt="#"></a>
         </div>
         <div class="footer_logo">
           <router-link to="/"><img src="../assets/img/Logo.png" alt="#" /></router-link>

@@ -386,9 +386,14 @@ export default {
   display: flex;
   justify-content: center;
   gap: 10px;
+  /*position: relative;*/
 }
 .modal-description-img img {
   max-width: 40%;
+  transition: transform 0.3s ease-in-out;
+}
+.modal-description-img img:hover {
+  transform: scale(1.3);
 }
 .modal-description {
   display: flex;
@@ -535,9 +540,8 @@ export default {
 .room-card img {
   height: 200px;
   width: 100%;
-  border-radius: 5px 5px 0 0 ;
+  border-radius: 5px 5px 0 0;
 }
-
 
 .additional-services {
   margin-top: 0;

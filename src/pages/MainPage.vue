@@ -6,7 +6,7 @@
           <div class="head_booking_wnd">
             <div class="head_booking_wnd_inputs">
               <h1 style="color: white; line-height: 50px; font-size: 26px;">Для наших дорогих гостей - специальные акции и скидки! Забронируйте номер уже сегодня и получите больше за меньшую цену!</h1>
-              <router-link to="/promo">Подробнее</router-link>
+              <router-link to="/promo" class="detailed_btn">Подробнее</router-link>
             </div>
           </div>
         </div>
@@ -117,9 +117,10 @@
   flex-direction: column;
   align-items: center;
 }
-.head_booking_wnd_inputs a {
+.detailed_btn {
   text-decoration: none;
   margin-top: 40px;
+  border-radius: 5px;
   background: var(--cyan);
   padding: 12px 85px;
   color: white;
@@ -128,5 +129,10 @@
   font-weight: 500;
   font-size: 22px;
   line-height: 27px;
+  transition: 0.5s ease;
+}
+.detailed_btn:hover {
+  color: var(--cyan);
+  background: white;
 }
 </style>

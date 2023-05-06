@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper" style="display:flex; gap: 150px; justify-content: space-around; padding-top: 50px;">
+  <div class="wrapper" style="display:flex; justify-content: space-between; gap: 20px; padding-top: 50px;">
     <div class="universal_block">
       <h1>Создание номера</h1>
       <div class="create_room">
@@ -148,7 +148,7 @@
       <button class="redact_product" @click="createPromotion">Сохранить изменения</button>
     </div>
   </div>
-  <div class="universal_block" style="padding-bottom: 100px;  padding-bottom: 100px;">
+  <div class="universal_block" style="padding-bottom: 100px;">
     <h1>Удаление спецпредложения</h1>
     <form @submit.prevent="submitFormDeletePromo">
       <label for="search_delete_promo">Введите id или название спецпредложения</label>

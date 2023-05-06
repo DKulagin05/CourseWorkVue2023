@@ -44,7 +44,9 @@
                 <label for="edit_mail">Email:</label>
                 <input type="text" v-model="new_email" name="edit_mail" id="edit_mail" required>
 
-                <label for="edit_profile_img">Изображение профиля:</label>
+              </div>
+              <div style="margin-bottom: 20px;">
+                <label for="edit_profile_img">Изображение профиля: </label>
                 <input type="file" @change="onImgSelected"  name="edit_profile_img" id="edit_profile_img">
               </div>
               <input type="submit" class="save_changes" @click="saveChanges">
@@ -188,6 +190,11 @@ export default {
     },
     editProfile() {
       this.editMode = !this.editMode
+      this.new_email = this.personalData.email
+      this.new_phone = this.personalData.phone
+      this.new_patronymic = this.personalData.patronymic
+      this.new_surname = this.personalData.surname
+      this.new_name = this.personalData.name
     },
     saveChanges() {
       const formData = new FormData();
@@ -199,7 +206,6 @@ export default {
       formData.append('new_phone', this.new_phone);
       formData.append('new_email', this.new_email);
       formData.append('edit_img', this.selectedImg);
-      console.log(formData)
       fetch('http://frontend/src/api/editPersonalData.php', {
         method: 'POST',
         body: formData,
@@ -218,6 +224,7 @@ export default {
     },
   },
   mounted() {
+
     let token = localStorage.getItem('token');
     this.fetchPersonalData()
     fetch('http://frontend/src/api/personalBookingInfo.php', {
@@ -264,6 +271,9 @@ export default {
 .service label {
   font-size: 14px;
 }
+.service input {
+  width: 400px;
+}
 .personal_info_booking {
   padding-bottom: 100px;
 }
@@ -286,7 +296,7 @@ export default {
   gap: 50px;
 }
 input[type="text"] {
-  width: 100px !important;
+  width: 150px !important;
   margin-right: 20px;
 }
 .edit_personal_data {

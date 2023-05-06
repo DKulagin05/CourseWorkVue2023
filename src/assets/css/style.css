@@ -119,6 +119,9 @@ select {
     display: flex;
     gap: 30px;
 }
+.header_links a:hover {
+    text-decoration: revert;
+}
 .header_links_mobile {
     display: none;
 }
@@ -455,7 +458,6 @@ footer {
     height: 20px;
 }
 .personal_info_block {
-    margin-top: 100px;
     display: flex;
     gap: 100px;
 }
@@ -721,7 +723,12 @@ textarea[id="hobbies"]{
     line-height: 29px;
     color: var(--white);
 }
-
+.window_reg_log a:hover {
+    text-decoration: revert;
+}
+.window_reg_log a:last-child:hover {
+    color: #c13a3a;
+}
 
 
 

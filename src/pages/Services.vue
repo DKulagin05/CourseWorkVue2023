@@ -6,7 +6,7 @@
         <h3>{{ item.title }}</h3>
         <span :class="{'active': activeIndex === index}">&#8595;</span>
       </div>
-      <div class="accordion-title" v-if="activeIndex === index">
+      <div class="accordion-title" v-if="activeIndex === index" :class="{'active_title': activeIndex === index}">
         <p>{{ item.description }}</p>
       </div>
     </div>
@@ -86,7 +86,9 @@ export default {
   transform: rotate(180deg);
   transition: 0.4s ease;
 }
-
+.active_title {
+  transition: 0.4s ease;
+}
 .accordion-title {
   background-color: #f2ede4;
   padding: 15px 20px 15px 20px;

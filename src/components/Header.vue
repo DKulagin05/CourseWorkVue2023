@@ -3,7 +3,7 @@
     <div class="wrapper">
       <div class="header_body">
         <div class="header_logo">
-          <router-link to="/"><img src="../assets/img/Logo.png" alt="#" /></router-link>
+          <router-link to="/" style="display:flex;align-items: center; gap: 10px; color: white; text-decoration: none; font-size: 24px"><img src="../assets/img/Logo.png" alt="#" /> ДоРассвета</router-link>
 
         </div>
         <div class="header_links">
