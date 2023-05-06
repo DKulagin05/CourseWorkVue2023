@@ -271,9 +271,6 @@ export default {
 .service label {
   font-size: 14px;
 }
-.service input {
-  width: 400px;
-}
 .personal_info_booking {
   padding-bottom: 100px;
 }

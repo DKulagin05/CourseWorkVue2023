@@ -555,6 +555,7 @@ export default {
 .service {
   display: flex;
   align-items: center;
+
 }
 
 .service label {
