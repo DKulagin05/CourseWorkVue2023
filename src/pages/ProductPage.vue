@@ -1,5 +1,6 @@
 <template>
   <div class="wrapper">
+<!--  Фильтры  -->
     <section class="filters">
       <div class="wrapper">
         <div class="filters-title">

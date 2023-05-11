@@ -1,4 +1,6 @@
 <?php
+
+// Можно корректировать
 include_once 'Database.php';
 $conn = new Database();
 if (!$conn->getConnection()) {
