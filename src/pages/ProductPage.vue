@@ -1,6 +1,5 @@
 <template>
   <div class="wrapper">
-<!--  Фильтры  -->
     <section class="filters">
       <div class="wrapper">
         <div class="filters-title">
@@ -55,10 +54,8 @@
              <li v-if="parseInt(room.WiFi)">WiFi</li>
              <li v-if="parseInt(room.Conditioner)">Кондиционер</li>
            </div>
-
           </ul>
         </div>
-
         <div class="room-booking">
           <div>
             <button style="position: absolute; bottom: 20px; right: 20px; margin-top: 50px;" class="book-button" @click="showModal = true; selectRoom(room)">Подробнее</button>
@@ -91,10 +88,8 @@
                         <p style="font-weight: bold; text-align: center;  font-size: 20px;">Цена: {{ totalCount }} р</p>
                       </div>
                     </div>
-
                   </div>
                 </div>
-
                 <div class="modal-room-additional-info">
                   <div class="modal-info">
                     <div class="modal-additional-services">

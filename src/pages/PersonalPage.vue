@@ -244,6 +244,9 @@ export default {
 </script>
 
 <style scoped>
+.admin_box a{
+  color: #c8a165;
+}
 .save_changes {
   background-color: #c8a165;
   color: #fff;

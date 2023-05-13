@@ -1159,7 +1159,6 @@ textarea[id="hobbies"]{
     border: 2px solid var(--brown);
     color: #FAF6F2;
 }
-
 .filters .filters-more-filters {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -1168,7 +1167,8 @@ textarea[id="hobbies"]{
     -ms-flex-pack: justify;
     /*justify-content: space-between;*/
     gap: 50px;
-    margin-bottom: 2vh;
+    margin-bottom: 3vh;
+    margin-top: 2vh;
     align-items: center;
 }
 

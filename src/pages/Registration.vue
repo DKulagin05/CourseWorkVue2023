@@ -30,11 +30,11 @@
             </div>
             <div class="input_label_box">
               <label for="password">Введите пароль</label>
-              <input @input="checkPasswordValidity" type="password" v-model="password" id="password" required>
+              <input @input="checkPasswordValidity" type="password" v-model="password" id="password" required v-bind:class="{ valid: isValidPassword, invalid: !isValidPassword }">
             </div>
             <div class="input_label_box">
               <label for="password_repeat">Подтвердите пароль</label>
-              <input @input="checkPasswordValidity" type="password" v-model="password_repeat" id="password_repeat" required>
+              <input @input="checkPasswordValidity" type="password" v-model="password_repeat" id="password_repeat" required v-bind:class="{ valid: isValidPassword, invalid: !isValidPassword }">
               <div v-if="!isValidPassword" class="error_message">Пароль должен быть не менее 8 символов и совпадать в обоих полях</div>
             </div>
           </div>
@@ -45,7 +45,6 @@
               <label for="approval" >Вы соглашаетесь с <a href="">Условиями</a> на обработку ваших персональных данных</label>
             </div>
             <div v-if="!approval" class="error_message">Необходимо принять условия</div>
-
           </div>
           <div class="login_var">
             <p>Уже есть аккаунт?</p>
