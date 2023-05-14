@@ -9,7 +9,9 @@ import Promo from "@/pages/Promo.vue"
 import Contacts from "@/pages/Contacts.vue";
 import PersonalPage from "@/pages/PersonalPage.vue";
 import Logout from "@/pages/Logout.vue";
-import Test from "@/pages/test.vue"
+import Test from "@/pages/test.vue";
+import ReviewsPage from "@/pages/ReviewsPage.vue"
+
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -68,6 +70,11 @@ const router = createRouter({
             path: '/test',
             name: 'Test',
             component: Test
+        },
+        {
+            path: '/reviews',
+            name: 'reviews',
+            component: ReviewsPage
         },
 
     ]

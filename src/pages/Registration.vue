@@ -25,16 +25,16 @@
             </div>
             <div class="input_label_box">
               <label for="phone">Номер телефона</label>
-              <input @input="checkPhoneValidity" type="text" v-model="phone" id="phone" required v-bind:class="{ valid: isValidPhone, invalid: !isValidPhone }">
+              <input @input="checkPhoneValidity" type="text" v-model="phone" id="phone" required :class="{ valid: isValidPhone, invalid: !isValidPhone }">
               <div v-if="!isValidPhone" class="error_message">Телефон некорректен</div>
             </div>
             <div class="input_label_box">
               <label for="password">Введите пароль</label>
-              <input @input="checkPasswordValidity" type="password" v-model="password" id="password" required v-bind:class="{ valid: isValidPassword, invalid: !isValidPassword }">
+              <input @input="checkPasswordValidity" type="password" v-model="password" id="password" required :class="{ valid: isValidPassword, invalid: !isValidPassword }">
             </div>
             <div class="input_label_box">
               <label for="password_repeat">Подтвердите пароль</label>
-              <input @input="checkPasswordValidity" type="password" v-model="password_repeat" id="password_repeat" required v-bind:class="{ valid: isValidPassword, invalid: !isValidPassword }">
+              <input @input="checkPasswordValidity" type="password" v-model="password_repeat" id="password_repeat" required :class="{ valid: isValidPassword, invalid: !isValidPassword }">
               <div v-if="!isValidPassword" class="error_message">Пароль должен быть не менее 8 символов и совпадать в обоих полях</div>
             </div>
           </div>

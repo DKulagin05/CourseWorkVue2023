@@ -30,6 +30,7 @@ if(isset($entityBody['email']) && isset($entityBody['password'])) {
                 "nbf" => $nbf,
                 "data" => array(
                     "id" => $user['id'],
+                    "user_name" => $user['name'],
                     "admin" => $user['admin']
                 )
             );
@@ -42,7 +43,7 @@ if(isset($entityBody['email']) && isset($entityBody['password'])) {
             echo json_encode(['success' => false, 'message' => 'Неверный пароль']);
         }
     } else {
-        echo json_encode(['success' => false, 'message' => 'Пользователь с такой почтой не найден']);
+        echo json_encode(['success' => false, 'message' => 'Пользователь с такой почтой или номером не найден']);
     }
     mysqli_close($conn->getConnection());
 } else {

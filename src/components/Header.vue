@@ -11,6 +11,7 @@
           <router-link to="/product">Бронирование</router-link>
           <router-link to="/services">Услуги</router-link>
           <router-link to="/contacts">Контакты</router-link>
+          <router-link to="/reviews">Отзывы</router-link>
         </div>
         <div class="header_profile">
           <img src="@/assets/img/Profile.png" alt="#" @click="toggleWindow" />
@@ -19,6 +20,7 @@
             <router-link to="/product" class="header_links_mobile">Бронирование</router-link>
             <router-link to="/services" class="header_links_mobile">Услуги</router-link>
             <router-link to="/contacts" class="header_links_mobile">Контакты</router-link>
+            <router-link to="/reviews" class="header_links_mobile">Отзывы</router-link>
             <router-link v-if="isLoggedIn" to="/personal" class="profile">Профиль</router-link>
             <router-link v-if="isLoggedIn" to="/logout" class="logout" @click="handleLogout">Выйти</router-link>
             <router-link v-if="!isLoggedIn" to="/login" class="login">Войти</router-link>

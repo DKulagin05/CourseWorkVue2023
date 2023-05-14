@@ -10,9 +10,9 @@
           <div class="filters-more-filters-price">
             <p>Цена</p>
             <div class="filters-more-filters-price-inputs">
-              <input class="input" id="search_price_start" type="text" placeholder="От" v-model="priceFrom" />
+              <input class="input" id="search_price_start" type="number" placeholder="От" v-model="priceFrom" />
               <div class="line_filters"></div>
-              <input class="input" id="search_price_end" type="text" placeholder="До" v-model="priceTo" />
+              <input class="input" id="search_price_end" type="number" placeholder="До" v-model="priceTo" />
             </div>
           </div>
           <div class="filters-more-filters-sort">
@@ -277,7 +277,6 @@ export default {
     },
     selectRoom(room) {
       this.selectedRoom = room;
-
     },
     bookRoom(id) {
       let item_booking = this.selectedRoom.id;
@@ -342,6 +341,9 @@ export default {
 .wrapper {
   font-family: 'Jost', sans-serif;
   font-family: 'Montserrat', sans-serif;
+}
+input[type='number'] {
+  -moz-appearance: textfield;
 }
 .disabled-button {
   opacity: 0.5;
