@@ -8,11 +8,8 @@
           <input type="text" id="name" v-model="user_name" disabled>
         </div>
         <div class="form-group">
-          <label for="rating">Оценка</label>
-          <select id="rating" v-model="rating" required>
-            <option value="" disabled>Выберите оценку</option>
-            <option v-for="n in 5" :value="n">{{ n }}</option>
-          </select>
+          <p>Оценка</p>
+          <Rating :value="rating" @input="updateRating" />
         </div>
         <div class="form-group">
           <label for="title">Заголовок</label>
@@ -25,7 +22,7 @@
         <button type="submit">Отправить отзыв</button>
       </form>
     </div>
-    <div class="" v-else>Зарегистрируйтесь или войдите в аккаунт чтобы оставить отзыв</div>
+    <div class="" v-if="user_name === null">Зарегистрируйтесь или войдите в аккаунт чтобы оставить отзыв</div>
     <div class="reviews">
       <h2>Отзывы о нашем отеле</h2>
       <div v-for="(review, index) in paginatedReviews" :key="index" class="review">
@@ -36,7 +33,11 @@
             <p class="" v-if="admin==='1'" @click="removeReview(review.id, review.title)">Удалить (Адм)</p>
           </div>
         </div>
-        <p class="rating">{{ review.score }}/5</p>
+        <div class="review_rating">
+          <div v-for="n in 5" :key="n">
+            <img :src="n <= review.score ? 'src/assets/img/filledStar.png' : 'src/assets/img/emptyStar.png'" alt="star" />
+          </div>
+        </div>
         <p class="title">{{ review.title }}</p>
         <p class="description">{{ review.description }}</p>
         <p class="date">{{ formatDate(review.date) }}</p>
@@ -54,7 +55,12 @@
 </template>
 
 <script>
+import Rating from '@/components/Rating.vue'
 export default {
+  name: 'ReviewPage',
+  components: {
+    Rating
+  },
   data() {
     return {
       user_name: null,
@@ -62,7 +68,7 @@ export default {
       title: "",
       name: "",
       date: "",
-      rating: "",
+      rating: 0,
       description: "",
       id_user: "",
       admin: 0,
@@ -81,6 +87,9 @@ export default {
     },
   },
   methods: {
+    updateRating(value) {
+      this.rating = value;
+    },
     prevPage() {
       this.currentPage--;
     },
@@ -111,6 +120,7 @@ export default {
           .catch((error) => console.error(error));
     },
     removeReview(remove_id,remove_title) {
+      console.log(this.rating)
       if(confirm('Вы уверены, что хотите удалить отзыв "' + remove_title + '"')) {
         fetch('http://frontend/src/api/deleteReview.php', {
           method: 'POST',
@@ -191,6 +201,15 @@ export default {
   display: flex;
   gap: 20px;
 }
+.review_rating {
+  display: flex;
+  gap: 2px;
+  margin: 10px 0;
+}
+.review_rating img{
+  width: 20px;
+  height: 20px;
+}
 .review_delete p {
   cursor: pointer;
   color: #916d48;
@@ -252,7 +271,7 @@ h2 {
   font-size: 30px;
   margin: 0 20px ;
 }
-label {
+label, .form-group p {
   font-weight: bold;
   margin-bottom: 5px;
   color: #3b3a36;

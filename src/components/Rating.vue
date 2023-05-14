@@ -36,7 +36,8 @@ export default {
   },
   methods: {
     rate(star) {
-      this.selected = star
+      this.selected = star;
+      this.$emit('input', this.selected);
     }
   }
 }
