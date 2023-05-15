@@ -280,41 +280,44 @@ export default {
     },
     bookRoom(id) {
       let item_booking = this.selectedRoom.id;
-      const token = localStorage.getItem('token');
-      let array_services = [
-        this.wakeUp ? 1:0,
-        this.meal ? 1:0,
-        this.specialZones ? 1:0,
-        this.transport ? 1:0,
-      ]
-      let InDate = this.checkInDate
-      let OutDate = this.checkOutDate
-      let totalPrice = this.totalPrice
-      fetch('http://frontend/src/api/booking.php', {
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json"
-        },
-        method: 'POST',
-        body: JSON.stringify({
-          item_booking,
-          token,
-          array_services,
-          InDate,
-          OutDate,
-          totalPrice
+      if (localStorage.getItem('token')) {
+        const token = localStorage.getItem('token');
+        let array_services = [
+          this.wakeUp ? 1:0,
+          this.meal ? 1:0,
+          this.specialZones ? 1:0,
+          this.transport ? 1:0,
+        ]
+        let InDate = this.checkInDate
+        let OutDate = this.checkOutDate
+        let totalPrice = this.totalPrice
+        fetch('http://frontend/src/api/booking.php', {
+          headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+          },
+          method: 'POST',
+          body: JSON.stringify({
+            item_booking,
+            token,
+            array_services,
+            InDate,
+            OutDate,
+            totalPrice
+          })
         })
-      })
-          .then(response => response.json())
-          .then(data => {
-            if(data.success) {
-              alert(data.message);
-              this.$router.push('/personal');
-            } else {
-              alert(data.message);
-            }
-          });
-
+            .then(response => response.json())
+            .then(data => {
+              if(data.success) {
+                alert(data.message);
+                this.$router.push('/personal');
+              } else {
+                alert(data.message);
+              }
+            });
+      } else {
+        alert('Нельзя забронировать номер без авторизации')
+      }
       this.showModal = false;
     },
   },

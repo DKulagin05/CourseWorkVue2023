@@ -22,7 +22,7 @@
         <button type="submit">Отправить отзыв</button>
       </form>
     </div>
-    <div class="" v-if="user_name === null">Зарегистрируйтесь или войдите в аккаунт чтобы оставить отзыв</div>
+    <div class="review_auth_error" v-if="user_name === null">Зарегистрируйтесь или войдите в аккаунт чтобы оставить отзыв</div>
     <div class="reviews">
       <h2>Отзывы о нашем отеле</h2>
       <div v-for="(review, index) in paginatedReviews" :key="index" class="review">
@@ -248,7 +248,13 @@ form button[type="submit"] {
   flex-direction: column;
   align-items: center;
 }
-
+.review_auth_error {
+  margin: 80px 0;
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+  color: #3b3a36;
+}
 h2 {
   font-size: 32px;
   font-weight: bold;
