@@ -27,7 +27,10 @@
       <h2>Отзывы о нашем отеле</h2>
       <div v-for="(review, index) in paginatedReviews" :key="index" class="review">
         <div class="review_head">
-          <p class="name">{{ review.user_name }}</p>
+          <div style="display:flex; gap: 5px;">
+            <p class="name">{{ review.user_name }}</p>
+            <p class="name" style="opacity: 0.2">{{ review.id_user }}</p>
+          </div>
           <div class="review_delete">
             <p class="" v-if="id_user===review.id_user" @click="removeReview(review.id, review.title)">Удалить</p>
             <p class="" v-if="admin==='1'" @click="removeReview(review.id, review.title)">Удалить (Адм)</p>

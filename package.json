@@ -9,6 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "jquery": "^3.7.0",
+    "jquery-ui-dist": "^1.13.2",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6",
     "vue-transition": "^0.1.3"
