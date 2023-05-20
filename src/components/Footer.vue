@@ -9,6 +9,7 @@
         <div class="footer_links">
           <router-link to="/contacts">Контакты</router-link>
           <router-link to="/services">Услуги</router-link>
+          <router-link to="/reviews">Отзывы</router-link>
         </div>
         <div class="footer_pay_var">
           <a href="https://qiwi.com/"><img src="@/assets/img/qiwi.png" alt="#"></a>

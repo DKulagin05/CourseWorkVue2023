@@ -488,7 +488,7 @@ footer {
     display: flex;
     flex-wrap: wrap;
     gap: 100px;
-    padding-bottom: 150px;
+    padding-bottom: 100px;
 }
 .modal {
     position: fixed;

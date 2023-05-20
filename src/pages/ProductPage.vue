@@ -4,7 +4,6 @@
       <div class="wrapper">
         <div class="filters-title">
           <div class="filters-title-text">Каталог</div>
-          <div class="filters-title-filters"></div>
         </div>
         <form class="filters-more-filters">
           <div class="filters-more-filters-price">
@@ -33,7 +32,7 @@
       </div>
     </section>
     <div class="card_container">
-      <div style="position: relative" class="room-card" v-for="room in filteredRooms" :key="room.id">
+      <div style="position: relative" class="room-card" v-for="room in paginatedRooms" :key="room.id">
         <div class="room-img">
           <img :src="'http://frontend/src/assets/img/products/' + room.img_1" :alt="room.title">
         </div>
@@ -139,6 +138,16 @@
         </div>
       </div>
     </div>
+    <div class="cards-notification-container" v-if="paginatedRooms.length < 1">Свободных номеров нет, возвращайтесь позже!</div>
+    <div class="pagination-container" v-if="totalPages > 1">
+      <p class="pagination-text">Страница {{ currentPage }} из {{ totalPages }}</p>
+      <div class="buttons-container">
+        <button @click="goToFirstPage"  class="pagination-button first-button">&lt;&lt;&lt;</button>
+        <button @click="prevPage" :disabled="currentPage === 1" class="pagination-button prev-button">Назад</button>
+        <button @click="nextPage" :disabled="currentPage === totalPages" class="pagination-button next-button">Вперед</button>
+        <button @click="goToLastPage" class="pagination-button last-button">>>></button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -177,10 +186,20 @@ export default {
       priceTo: 10000,
       priceFrom: 0,
       peopleCount: 0,
-      filteredRooms: []
+      filteredRooms: [],
+      currentPage: 1,
+      itemsPerPage: 9,
     }
   },
   computed: {
+    totalPages() {
+      return Math.ceil(this.filteredRooms.length / this.itemsPerPage);
+    },
+    paginatedRooms() {
+      const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+      const endIndex = startIndex + this.itemsPerPage;
+      return this.filteredRooms.slice(startIndex, endIndex);
+    },
     totalCount(){
       let add = 0
       if(this.meal) add += 1500
@@ -189,7 +208,6 @@ export default {
       if(this.wakeUp) add += 500
       this.totalPrice = this.selectedRoom.price * this.daysCount + add
       return this.selectedRoom.price * this.daysCount + add
-
     }
   },
   watch: {
@@ -215,12 +233,28 @@ export default {
     }
   },
   methods: {
+    goToFirstPage() {
+      this.currentPage = 1;
+    },
+    goToLastPage() {
+      this.currentPage = this.totalPages;
+    },
+    prevPage() {
+      if (this.currentPage > 1) {
+        this.currentPage--;
+      }
+    },
+    nextPage() {
+      if (this.currentPage < this.totalPages) {
+        this.currentPage++;
+      }
+    },
     filter() {
       const priceFrom = this.priceFrom;
       const priceTo = parseFloat(this.priceTo);
       const sortBy = this.sortType;
       const peopleCount = parseInt(this.peopleCount);
-
+      this.currentPage = 1;
       let filteredRooms = this.rooms;
 
       if (!isNaN(priceFrom) && !isNaN(priceTo)) {
@@ -344,6 +378,54 @@ export default {
 .wrapper {
   font-family: 'Jost', sans-serif;
   font-family: 'Montserrat', sans-serif;
+}
+.pagination-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 150px;
+}
+.buttons-container {
+  display: flex;
+  gap: 30px;
+}
+.pagination-text {
+  font-family: 'Jost', sans-serif;
+  font-weight: 600;
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #555555;
+}
+
+.pagination-button {
+  padding: 12px 20px;
+  font-size: 20px;
+  background-color: #c8a165;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 120px;
+}
+.cards-notification-container {
+  font-size: 28px;
+  font-weight: 600;
+  margin: 20px 0;
+  font-style: inherit;
+  text-align: center;
+}
+.pagination-button:hover {
+  background-color: #ac854a;
+}
+
+.pagination-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.first-button,
+.last-button {
+  width: 80px;
 }
 input[type='number'] {
   -moz-appearance: textfield;

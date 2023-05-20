@@ -13,7 +13,7 @@
           <router-link to="/contacts">Контакты</router-link>
           <router-link to="/reviews">Отзывы</router-link>
         </div>
-        <div class="header_profile">
+        <div class="header_profile" ref="headerProfile">
           <img src="@/assets/img/Profile.png" alt="#" @click="toggleWindow" />
           <div class="window_reg_log" :class="['active', !isWindowActive ? 'hide' : '']" >
             <router-link to="/promo" class="header_links_mobile">Спецпредложения</router-link>
@@ -46,6 +46,10 @@ export default {
     if (token) {
       this.isLoggedIn = true;
     }
+    document.addEventListener("click", this.handleDocumentClick);
+  },
+  beforeUnmount() {
+    document.removeEventListener("click", this.handleDocumentClick);
   },
   methods: {
     toggleWindow() {
@@ -56,6 +60,12 @@ export default {
       this.isLoggedIn = false;
       this.isWindowActive = false;
     },
+    handleDocumentClick(event) {
+      const headerProfile = this.$refs.headerProfile;
+      if (headerProfile && !headerProfile.contains(event.target)) {
+        this.isWindowActive = false;
+      }
+    },
   },
 };
 </script>
@@ -63,6 +73,22 @@ export default {
 .hide {
   display: none !important;
 }
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.window_reg_log {
+  animation: fadeIn 0.2s ease-in-out;
+}
+
 </style>
 
 

@@ -76,7 +76,6 @@ const router = createRouter({
             name: 'reviews',
             component: ReviewsPage
         },
-
     ]
 })
 

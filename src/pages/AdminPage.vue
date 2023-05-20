@@ -330,11 +330,9 @@ export default {
           .then((data) => {
             if (data.success) {
               alert(data.message);
-              // location.reload();
-              console.log(data.tet)
+              location.reload();
             } else {
               alert(data.message);
-              console.log(data.tet)
             }
           })
           .catch((error) => console.error(error));
